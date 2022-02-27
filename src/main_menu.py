@@ -1,6 +1,8 @@
 # Imports
 from screen import *
 from canvas_ui.button import Button
+from necessary_defaults import THEMES_PATH, DEFAULT_THEME
+from settings_p1 import Settings
 
 # Main menu canvas
 class MainMenu(Screen):
@@ -49,7 +51,8 @@ class MainMenu(Screen):
             70,
             conf=self.conf,
             theme=self.theme,
-            text="Settings"
+            text="Settings",
+            callback=self.show_settings
         )
 
         self.exit_button = Button(
@@ -63,4 +66,9 @@ class MainMenu(Screen):
             text="Exit",
             callback=exit
         )
-        
+
+    def show_settings(self):
+        self.master.settings = Settings(self.master, self.master.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
+        self.master.settings.pack(expand=1, fill="both")
+        self.destroy()
+
