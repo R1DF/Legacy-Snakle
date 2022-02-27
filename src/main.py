@@ -1,5 +1,5 @@
 # Imports
-from tkinter import Tk, messagebox # window GUI
+from tkinter import Tk, messagebox, PhotoImage # window GUI
 from config_loader import ConfigLoader
 from theme_loader import ThemeLoader
 from necessary_defaults import *
@@ -25,8 +25,12 @@ class App(Tk):
         # Loading protocol
         self.protocol("WM_DELETE_WINDOW", self.handle_exit)
 
-        # Making the main menu
+        # Setting the icon and making the main menu
+        self.set_icon()
         self.make_main_menu()
+
+    def set_icon(self):
+        self.iconphoto(True, PhotoImage(file="images/snakle_icon_32x32.png"))
 
     def make_main_menu(self):
         self.main_menu = MainMenu(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
