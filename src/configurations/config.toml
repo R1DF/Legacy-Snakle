@@ -1,3 +1,10 @@
 [window]
-width = "300"
-height = "300"
+width = 500
+height = 600
+
+[text]
+font_family = "Franklin Gothic Medium"
+text_size_huge = 50
+text_size_big = 30
+text_size_mid = 20
+text_size_small = 15

@@ -1,0 +1,12 @@
+[meta]
+name = "Snakle Default"
+author = "R1DF"
+date = [0, 0, 2022]
+description = "The default theme for Snakle with Python colours."
+
+[data]
+bg = "#4B8BBE"
+button_fill = "#FFD43B"
+button_highlight = "#FFE873"
+
+text_fill = "BLACK"
