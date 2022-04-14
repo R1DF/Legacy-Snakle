@@ -4,6 +4,7 @@ from config_loader import ConfigLoader
 from theme_loader import ThemeLoader
 from necessary_defaults import *
 from main_menu import *
+from settings_p1 import Settings
 
 # Making the window
 class App(Tk):
@@ -35,6 +36,10 @@ class App(Tk):
     def make_main_menu(self):
         self.main_menu = MainMenu(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
         self.main_menu.pack(expand=1, fill="both")
+
+    def make_settings(self):
+        self.settings = Settings(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
+        self.settings.pack(expand=1, fill="both")
 
     def handle_exit(self):
         if messagebox.askyesno("Confirm exit", "Are you sure you want to exit?"):

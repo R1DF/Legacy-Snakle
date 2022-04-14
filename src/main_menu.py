@@ -2,6 +2,7 @@
 from screen import *
 from canvas_ui.button import Button
 from necessary_defaults import THEMES_PATH, DEFAULT_THEME
+from themes import Themes
 from settings_p1 import Settings
 
 # Main menu canvas
@@ -40,7 +41,8 @@ class MainMenu(Screen):
             70,
             conf=self.conf,
             theme=self.theme,
-            text="Themes"
+            text="Themes",
+            callback=self.manage_themes
         )
 
         self.settings_button = Button(
@@ -67,8 +69,20 @@ class MainMenu(Screen):
             callback=exit
         )
 
+        self.version_text = self.create_text(
+            self.WIDTH-55,
+            self.HEIGHT-20,
+            text="unreleased",
+            font=[self.FONT_FAMILY, self.TEXT_SIZES["small"]]
+        )
+
+    def manage_themes(self):
+        self.master.themes = Themes(self.master, self.master.theme_loader.load_theme(THEMES_PATH + DEFAULT_THEME),
+                                        self.conf)
+        self.master.themes.pack(expand=1, fill="both")
+        self.destroy()
+
     def show_settings(self):
-        self.master.settings = Settings(self.master, self.master.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
-        self.master.settings.pack(expand=1, fill="both")
+        self.master.make_settings()
         self.destroy()
 
