@@ -5,8 +5,15 @@ date = [0, 0, 2022]
 description = "The default theme for Snakle with Python colours."
 
 [data]
+# MISC.
 bg = "#4B8BBE"
+text_fill = "BLACK"
+line_fill = "BLACK"
+
+# BUTTON
 button_fill = "#FFD43B"
 button_highlight = "#FFE873"
 
-text_fill = "BLACK"
+# SELECTOR
+selector_fill = "#FFD43B"
+selector_highlight = "#FFE873"
