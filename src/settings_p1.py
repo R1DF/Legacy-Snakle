@@ -52,16 +52,98 @@ class Settings(Screen):
 
         )
 
+        self.manage_sound_text = self.create_text(
+            self.WIDTH // 2,
+            220,
+            text="Toggle Audio:",
+            font=[self.FONT_FAMILY, self.TEXT_SIZES["mid"]]
+        )
+
+        self.manage_sound_selector = Selector(
+            self,
+            self.WIDTH // 2,
+            270,
+            190,
+            50,
+            40,
+            40,
+            self.conf,
+            self.theme,
+            values=["Sound ON", "Sound OFF"]
+
+        )
+
+        self.manage_animation_text = self.create_text(
+            self.WIDTH // 2,
+            330,
+            text="Toggle Word Reveal Animation:",
+            font=[self.FONT_FAMILY, self.TEXT_SIZES["mid"]]
+        )
+
+        self.manage_animation_selector = Selector(
+            self,
+            self.WIDTH // 2,
+            380,
+            190,
+            50,
+            40,
+            40,
+            self.conf,
+            self.theme,
+            values=["Animated", "Instant"]
+
+        )
+
+        self.create_line(  # Second divider
+            0,
+            425,
+            self.WIDTH,
+            425,
+            fill=self.theme["line_fill"],
+            width=2
+        )
+
         self.manage_packs_button = Button(
+            self,
+            (self.WIDTH // 2) + 70,
+            455,
+            200,
+            40,
+            text="Word Packs",
+            conf=self.conf,
+            theme=self.theme,
+            callback=self.go_to_pack_manager
+        )
+
+        self.next_page_button = Button(
+            self,
+            (self.WIDTH // 2) + 200,
+            455,
+            40,
+            40,
+            text=">",
+            conf=self.conf,
+            theme=self.theme
+        ) # add a page counter
+
+        self.create_line(  # Another divider woooow
+            0,
+            485,
+            self.WIDTH,
+            485,
+            fill=self.theme["line_fill"],
+            width=2
+        )
+
+        self.save_changes_button = Button(
             self,
             (self.WIDTH // 2) + 130,
             540,
             200,
             70,
-            text="Word Packs",
+            text="Save Changes",
             conf=self.conf,
-            theme=self.theme,
-            callback=self.go_to_pack_manager
+            theme=self.theme
         )
 
         self.back_button = Button(
