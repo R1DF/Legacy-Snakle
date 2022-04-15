@@ -15,8 +15,8 @@ class App(Tk):
 
         # Getting configurations
         self.conf = ConfigLoader(CONF_PATH+CONF_FILE)
-        self.WIDTH = self.conf.get("window")["width"]
-        self.HEIGHT = self.conf.get("window")["height"]
+        self.WIDTH = self.conf.get("window")["resolutions"][self.conf.get("window")["default_resolution_index"]][0]
+        self.HEIGHT = self.conf.get("window")["resolutions"][self.conf.get("window")["default_resolution_index"]][1]
         self.geometry(f"{self.WIDTH}x{self.HEIGHT}")
         self.resizable(False, False)
 

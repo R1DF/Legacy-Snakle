@@ -10,8 +10,8 @@ class Screen(Canvas,):
 
         # Initializing variables to not write too much code
         self.conf = conf
-        self.WIDTH = self.conf.get("window")["width"]
-        self.HEIGHT = self.conf.get("window")["height"]
+        self.WIDTH = self.conf.get("window")["resolutions"][self.conf.get("window")["default_resolution_index"]][0]
+        self.HEIGHT = self.conf.get("window")["resolutions"][self.conf.get("window")["default_resolution_index"]][1]
         self.FONT_FAMILY = self.conf.get("text")["font_family"]
         self.TEXT_SIZES = {
             "huge": self.conf.get("text")["text_size_huge"],
