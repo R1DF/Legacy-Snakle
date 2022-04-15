@@ -105,11 +105,11 @@ class Selector:
 
     def handle_lclick(self, event):
         if is_inside(event, self.master.bbox(self.left_input_field)):
-            self.value_index = len(self.values)-1 if self.value_index == 0 else self.value_index - 1
+            self.value_index = self.value_index if self.value_index == 0 else self.value_index - 1 # ternary condition to make sure you can't go back before 0
             self.value = self.values[self.value_index]
             self.master.itemconfig(self.value_label, text=self.value)
         elif is_inside(event, self.master.bbox(self.right_input_field)):
-            self.value_index = 0 if self.value_index == len(self.values)-1 else self.value_index + 1
+            self.value_index = self.value_index if self.value_index == len(self.values)-1 else self.value_index + 1 # basically same as above but to the right
             self.value = self.values[self.value_index]
             self.master.itemconfig(self.value_label, text=self.value)
 
