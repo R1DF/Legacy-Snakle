@@ -48,7 +48,7 @@ class Settings(Screen):
             40,
             self.conf,
             self.theme,
-            values=["Option 1", "Option 2", "Option 3"]
+            values=[f"{x}x{y}" for x, y in self.conf.get("window")["resolutions"]] # list comprehensions save the world.
 
         )
 
