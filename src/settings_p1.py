@@ -105,7 +105,7 @@ class Settings(Screen):
 
         self.manage_packs_button = Button(
             self,
-            (self.WIDTH // 2) + 70,
+            (self.WIDTH // 2),
             455,
             200,
             40,
