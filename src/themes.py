@@ -18,7 +18,7 @@ class Themes(Screen):
             self.WIDTH // 2,
             50,
             text="Themes",
-            font=[self.FONT_FAMILY, self.TEXT_SIZES["huge"]]
+            font=[self.FONT, self.TEXT_SIZES["huge"]]
         )
 
         self.back_button = Button(

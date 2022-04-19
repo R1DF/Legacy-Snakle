@@ -6,7 +6,7 @@ from necessary_defaults import THEMES_PATH, DEFAULT_THEME
 from pack_manager import PacksManager
 
 # Main menu canvas
-class Settings(Screen):
+class SettingsP2(Screen):
     def __init__(self, master, theme, conf):
         Screen.__init__(self, master, theme, conf)  # check out if this line is necessary
 
@@ -22,76 +22,13 @@ class Settings(Screen):
             font=[self.FONT, self.TEXT_SIZES["huge"]]
         )
 
-        self.create_line( # This serves just as a divider between the title and settings
+        self.create_line(  # This serves just as a divider between the title and settings
             0,
             95,
             self.WIDTH,
             95,
             fill=self.theme["line_fill"],
             width=2
-        )
-
-        self.game_resolution_text = self.create_text(
-            self.WIDTH // 2,
-            120,
-            text="Window Resolution:",
-            font=[self.FONT, self.TEXT_SIZES["mid"]]
-        )
-
-        self.game_resolution_selector = Selector(
-            self,
-            self.WIDTH // 2,
-            160,
-            190,
-            50,
-            40,
-            40,
-            self.conf,
-            self.theme,
-            values=[f"{x}x{y}" for x, y in self.conf.get("window")["resolutions"]] # list comprehensions save the world.
-
-        )
-
-        self.manage_sound_text = self.create_text(
-            self.WIDTH // 2,
-            220,
-            text="Toggle Audio:",
-            font=[self.FONT, self.TEXT_SIZES["mid"]]
-        )
-
-        self.manage_sound_selector = Selector(
-            self,
-            self.WIDTH // 2,
-            270,
-            190,
-            50,
-            40,
-            40,
-            self.conf,
-            self.theme,
-            values=["Sound ON", "Sound OFF"]
-
-        )
-
-        self.manage_animation_text = self.create_text(
-            self.WIDTH // 2,
-            330,
-            text="Toggle Word Reveal Animation:",
-            font=[self.FONT, self.TEXT_SIZES["mid"]]
-        )
-
-        self.manage_animation_selector = Selector(
-            self,
-            self.WIDTH // 2,
-            380,
-            190,
-            50,
-            40,
-            40,
-            self.conf,
-            self.theme,
-            values=["Animated", "Instant"]
-
         )
 
         self.create_line(  # Second divider
@@ -106,7 +43,7 @@ class Settings(Screen):
         self.create_text(
             (self.WIDTH // 2) - 105,
             455,
-            text="Page 1",
+            text="Page 2",
             font=[self.FONT, self.TEXT_SIZES["mid"]]
         )
 
@@ -122,17 +59,17 @@ class Settings(Screen):
             callback=self.go_to_pack_manager
         )
 
-        self.next_page_button = Button(
+        self.previous_page_button = Button(
             self,
-            (self.WIDTH // 2) + 200,
+            (self.WIDTH // 2) - 200,
             455,
             40,
             40,
-            text=">",
+            text="<",
             conf=self.conf,
             theme=self.theme,
-            callback=self.go_to_page_2
-        ) # add a page counter
+            callback=self.go_to_page_1
+        )  # add a page counter
 
         self.create_line(  # Another divider woooow
             0,
@@ -175,7 +112,6 @@ class Settings(Screen):
         self.master.packs_manager.pack(expand=1, fill="both")
         self.destroy()
 
-    def go_to_page_2(self):
-        self.master.make_settings_p2()
+    def go_to_page_1(self):
+        self.master.make_settings()
         self.destroy()
-

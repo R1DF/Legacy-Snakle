@@ -19,7 +19,7 @@ class MainMenu(Screen):
             self.WIDTH//2,
             50,
             text="Snakle",
-            font=[self.FONT_FAMILY, self.TEXT_SIZES["huge"]]
+            font=[self.FONT, self.TEXT_SIZES["huge"]]
         )
 
         self.start_button = Button(
@@ -73,7 +73,7 @@ class MainMenu(Screen):
             self.WIDTH-55,
             self.HEIGHT-20,
             text="unreleased",
-            font=[self.FONT_FAMILY, self.TEXT_SIZES["small"]]
+            font=[self.FONT, self.TEXT_SIZES["small"]]
         )
 
     def manage_themes(self):

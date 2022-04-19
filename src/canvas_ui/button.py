@@ -27,7 +27,7 @@ class Button:
         # Drawing
         self.rect = self.master.create_rectangle(*self.init_coordinates, width=2, fill=self.theme["button_fill"])
         self.label = self.master.create_text(x, y, text=self.text,
-                                             fill=self.theme["text_fill"], font=[self.text_data["font_family"],
+                                             fill=self.theme["text_fill"], font=[self.master.FONT,
                                                                                  self.text_data["text_size_mid"]])
 
         # Binding

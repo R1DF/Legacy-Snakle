@@ -43,7 +43,7 @@ class Selector:
             y,
             text=self.value,
             fill=self.theme["text_fill"],
-            font=[self.text_data["font_family"], self.text_data["text_size_mid"]]
+            font=[self.master.FONT, self.text_data["text_size_mid"]]
         )
 
         self.left_input_field = self.master.create_rectangle(
@@ -59,7 +59,7 @@ class Selector:
             x - (offset_x // 2) - (left_offset // 2),
             y,
             text="\u2190",
-            font=[self.text_data["font_family"], self.text_data["text_size_mid"]],
+            font=[self.master.FONT, self.text_data["text_size_mid"]],
             fill=self.theme["text_fill"]
         )
 
@@ -76,7 +76,7 @@ class Selector:
             x + (offset_x // 2) + (right_offset // 2),
             y,
             text="\u2192",
-            font=[self.text_data["font_family"], self.text_data["text_size_mid"]],
+            font=[self.master.FONT, self.text_data["text_size_mid"]],
             fill=self.theme["text_fill"]
         )
 

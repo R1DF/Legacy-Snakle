@@ -5,6 +5,7 @@ from theme_loader import ThemeLoader
 from necessary_defaults import *
 from main_menu import *
 from settings_p1 import Settings
+from settings_p2 import SettingsP2
 
 # Making the window
 class App(Tk):
@@ -17,6 +18,8 @@ class App(Tk):
         self.conf = ConfigLoader(CONF_PATH+CONF_FILE)
         self.WIDTH = self.conf.get("window")["resolutions"][self.conf.get("window")["default_resolution_index"]][0]
         self.HEIGHT = self.conf.get("window")["resolutions"][self.conf.get("window")["default_resolution_index"]][1]
+        self.FONTS = self.conf.get("text")["fonts"]
+        self.FONT = self.FONTS[self.conf.get("text")["default_font_family_index"]]
         self.geometry(f"{self.WIDTH}x{self.HEIGHT}")
         self.resizable(False, False)
 
@@ -40,6 +43,10 @@ class App(Tk):
     def make_settings(self):
         self.settings = Settings(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
         self.settings.pack(expand=1, fill="both")
+
+    def make_settings_p2(self):
+        self.settings_p2 = SettingsP2(self, self.theme_loader.load_theme(THEMES_PATH + DEFAULT_THEME), self.conf)
+        self.settings_p2.pack(expand=1, fill="both")
 
     def handle_exit(self):
         if messagebox.askyesno("Confirm exit", "Are you sure you want to exit?"):
