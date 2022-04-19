@@ -17,3 +17,7 @@ button_highlight = "#FFE873"
 # SELECTOR
 selector_fill = "#FFD43B"
 selector_highlight = "#FFE873"
+
+# SCALE
+scale_fill = "#FFD43B"
+scale_highlight = "#FFE873"
