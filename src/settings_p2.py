@@ -2,6 +2,7 @@
 from screen import *
 from canvas_ui.button import Button
 from canvas_ui.selector import Selector
+from canvas_ui.scale import Scale
 from necessary_defaults import THEMES_PATH, DEFAULT_THEME
 from pack_manager import PacksManager
 
@@ -48,15 +49,100 @@ class SettingsP2(Screen):
             40,
             self.conf,
             self.theme,
-            values=[x if len(x) <= 22 else x[:-3]+"..." for x in self.master.FONTS] # so that the font names don't have to be very long
+            values=[x if len(x) <= 22 else x[:-10]+"..." for x in self.master.FONTS] # so that the font names don't have to be very long
         )
 
         self.text_sizes_text = self.create_text(
             self.WIDTH // 2,
-            220,
+            200,
             text="Text Sizes:",
             font=[self.FONT, self.TEXT_SIZES["mid"]]
         )
+
+        self.huge_size_text = self.create_text(
+            (self.WIDTH // 2) - 70,
+            240,
+            text="Huge:",
+            font=[self.FONT, self.TEXT_SIZES["mid"]]
+        )
+
+        self.huge_size_scale = Scale(
+            self,
+            (self.WIDTH // 2) + 70,
+            240,
+            25,
+            20,
+            15,
+            self.theme,
+            self.conf,
+            self.conf.get("text")["text_size_huge"],
+            min_value=10,
+            max_value=60
+        )
+
+        self.big_size_text = self.create_text(
+            (self.WIDTH // 2) - 70,
+            290,
+            text="Big:",
+            font=[self.FONT, self.TEXT_SIZES["mid"]]
+        )
+
+        self.big_size_scale = Scale(
+            self,
+            (self.WIDTH // 2) + 70,
+            290,
+            25,
+            20,
+            15,
+            self.theme,
+            self.conf,
+            self.conf.get("text")["text_size_big"],
+            min_value=10,
+            max_value=60
+        )
+
+        self.mid_size_text = self.create_text(
+            (self.WIDTH // 2) - 70,
+            340,
+            text="Medium:",
+            font=[self.FONT, self.TEXT_SIZES["mid"]]
+        )
+
+        self.mid_size_scale = Scale(
+            self,
+            (self.WIDTH // 2) + 70,
+            340,
+            25,
+            20,
+            15,
+            self.theme,
+            self.conf,
+            self.conf.get("text")["text_size_mid"],
+            min_value=10,
+            max_value=60
+        )
+
+        self.small_size_text = self.create_text(
+            (self.WIDTH // 2) - 70,
+            390,
+            text="Small:",
+            font=[self.FONT, self.TEXT_SIZES["mid"]]
+        )
+
+        self.small_size_scale = Scale(
+            self,
+            (self.WIDTH // 2) + 70,
+            390,
+            25,
+            20,
+            15,
+            self.theme,
+            self.conf,
+            self.conf.get("text")["text_size_small"],
+            min_value=10,
+            max_value=60
+        )
+
 
         self.create_line(  # Second divider
             0,
@@ -74,16 +160,16 @@ class SettingsP2(Screen):
             font=[self.FONT, self.TEXT_SIZES["mid"]]
         )
 
-        self.manage_packs_button = Button(
+        self.add_font_button = Button(
             self,
             (self.WIDTH // 2) + 70,
             455,
             200,
             40,
-            text="Word Packs",
+            text="Add Font",
             conf=self.conf,
             theme=self.theme,
-            callback=self.go_to_pack_manager
+            callback=self.open_font_adder
         )
 
         self.previous_page_button = Button(
@@ -134,10 +220,8 @@ class SettingsP2(Screen):
         self.master.make_main_menu()
         self.destroy()
 
-    def go_to_pack_manager(self):
-        self.master.packs_manager = PacksManager(self.master, self.master.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
-        self.master.packs_manager.pack(expand=1, fill="both")
-        self.destroy()
+    def open_font_adder(self):
+        pass
 
     def go_to_page_1(self):
         self.master.make_settings()
