@@ -22,13 +22,40 @@ class SettingsP2(Screen):
             font=[self.FONT, self.TEXT_SIZES["huge"]]
         )
 
-        self.create_line(  # This serves just as a divider between the title and settings
+        self.create_line(
             0,
             95,
             self.WIDTH,
             95,
             fill=self.theme["line_fill"],
             width=2
+        )
+
+        self.selected_font_text = self.create_text(
+            self.WIDTH // 2,
+            120,
+            text="Selected Font:",
+            font=[self.FONT, self.TEXT_SIZES["mid"]]
+        )
+
+        self.selected_font_selector = Selector(
+            self,
+            self.WIDTH // 2,
+            160,
+            390,
+            50,
+            40,
+            40,
+            self.conf,
+            self.theme,
+            values=[x if len(x) <= 22 else x[:-3]+"..." for x in self.master.FONTS] # so that the font names don't have to be very long
+        )
+
+        self.text_sizes_text = self.create_text(
+            self.WIDTH // 2,
+            220,
+            text="Text Sizes:",
+            font=[self.FONT, self.TEXT_SIZES["mid"]]
         )
 
         self.create_line(  # Second divider
@@ -71,7 +98,7 @@ class SettingsP2(Screen):
             callback=self.go_to_page_1
         )  # add a page counter
 
-        self.create_line(  # Another divider woooow
+        self.create_line(  # this divider thing is getting boring man
             0,
             485,
             self.WIDTH,
