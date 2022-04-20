@@ -160,16 +160,16 @@ class SettingsP2(Screen):
             font=[self.FONT, self.TEXT_SIZES["mid"]]
         )
 
-        self.add_font_button = Button(
+        self.manage_fonts_button = Button(
             self,
             (self.WIDTH // 2) + 70,
             455,
             200,
             40,
-            text="Add Font",
+            text="Manage Fonts",
             conf=self.conf,
             theme=self.theme,
-            callback=self.open_font_adder
+            callback=self.open_font_manager
         )
 
         self.previous_page_button = Button(
@@ -220,7 +220,7 @@ class SettingsP2(Screen):
         self.master.make_main_menu()
         self.destroy()
 
-    def open_font_adder(self):
+    def open_font_manager(self):
         pass
 
     def go_to_page_1(self):
