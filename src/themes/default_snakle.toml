@@ -8,6 +8,7 @@ description = "The default theme for Snakle with Python colours."
 # MISC.
 bg = "#4B8BBE"
 text_fill = "BLACK"
+text_invalid = "RED"
 line_fill = "BLACK"
 
 # BUTTON
@@ -21,3 +22,5 @@ selector_highlight = "#FFE873"
 # SCALE
 scale_fill = "#FFD43B"
 scale_highlight = "#FFE873"
+scale_cursor = "YELLOW"
+scale_border = "BLACK"
