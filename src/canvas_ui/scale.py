@@ -125,14 +125,16 @@ class Scale:
             self.master.itemconfig(self.number_rect, outline=self.theme["scale_border"])
 
             self.callback_up()
+            self.validate_input()
 
-        elif is_inside(event, self.master.bbox(self.down_input_field)):
+        elif is_inside(event, self.master.bbox(self.down_input_field)) and self.has_valid_input():
             self.is_highlighted = False
             self.value = self.value - 1 if self.value != self.min_value else self.value
             self.master.itemconfig(self.value_number_text, text=str(self.value))
             self.master.itemconfig(self.number_rect, outline=self.theme["scale_border"])
 
             self.callback_down()
+            self.validate_input()
 
         else:
             self.master.itemconfig(self.number_rect, outline=self.theme["scale_border"])
@@ -151,12 +153,8 @@ class Scale:
                     elif len(str(self.value)) == 1:
                         self.value = 0
 
-                    # Validity checking
-                    if self.value < self.min_value:
-                        self.master.itemconfig(self.value_number_text, fill=self.theme["text_invalid"])
-                    else:
-                        self.master.itemconfig(self.value_number_text, fill=self.theme["text_fill"])
-
+                # Validity checking
+                self.validate_input()
                 self.master.itemconfig(self.value_number_text, text=str(self.value))
 
     def highlight_cycle(self):
@@ -169,4 +167,13 @@ class Scale:
                 self.master.itemconfig(self.number_rect, outline=self.theme["scale_border"])
 
         self.master.after(self.conf.get("widgets")["scale_highlight_cycle_ms"], self.highlight_cycle)
+
+    def validate_input(self): # this function changes the text
+        if self.value < self.min_value:
+            self.master.itemconfig(self.value_number_text, fill=self.theme["text_invalid"])
+        else:
+            self.master.itemconfig(self.value_number_text, fill=self.theme["text_fill"])
+
+    def has_valid_input(self) -> bool:
+        return self.value >= self.min_value # this function returns a boolean
 
