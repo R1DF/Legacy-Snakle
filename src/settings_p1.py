@@ -151,7 +151,8 @@ class Settings(Screen):
             70,
             text="Save Changes",
             conf=self.conf,
-            theme=self.theme
+            theme=self.theme,
+            callback=self.save_p1_changes
         )
 
         self.back_button = Button(
@@ -179,3 +180,15 @@ class Settings(Screen):
         self.master.make_settings_p2()
         self.destroy()
 
+    def save_p1_changes(self):
+        restart_required = False
+
+        # Obtaining config file without the changes
+
+        # Creating new config file with merged data from the old file and the new inputs
+
+        # Checking if a different resolution was selected
+
+        # Checking if the sound has been toggled
+
+        # Checking if the word animation has been toggled
