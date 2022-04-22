@@ -20,4 +20,8 @@ text_size_mid = 20
 text_size_small = 15
 
 [widgets]
-scale_highlight_cycle_ms = 1000
+scale_highlight_cycle_ms = 500
+
+[game]
+has_sound = true
+has_animation = true
