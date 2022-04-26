@@ -51,7 +51,6 @@ class App(Tk):
     def handle_exit(self):
         if messagebox.askyesno("Confirm exit", "Are you sure you want to exit?"):
             quit()
-        
 
 # Creating the window instance
 app = App()
