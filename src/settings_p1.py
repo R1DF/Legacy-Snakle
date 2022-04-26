@@ -4,6 +4,8 @@ from canvas_ui.button import Button
 from canvas_ui.selector import Selector
 from necessary_defaults import THEMES_PATH, DEFAULT_THEME
 from pack_manager import PacksManager
+from config_changer import ConfChange
+from tkinter import messagebox
 
 # Main menu canvas
 class Settings(Screen):
@@ -181,14 +183,26 @@ class Settings(Screen):
         self.destroy()
 
     def save_p1_changes(self):
-        restart_required = False
+        restart_required = False # If at least one of the settings was updated, a restart is required.
+        conf_to_merge = {"window": {}, "game": {}} # This file contains the data straight from the window
 
         # Obtaining config file without the changes
+        old_conf = self.conf
 
-        # Creating new config file with merged data from the old file and the new inputs
-
-        # Checking if a different resolution was selected
+        # Below we are creating new config file with merged data from the old file and the new inputs
+        # Checking resolution settings
+        conf_to_merge["window"]["resolutions"] = self.game_resolution_selector.values
+        conf_to_merge["window"]["default_resolution_index"] = self.game_resolution_selector.value_index
 
         # Checking if the sound has been toggled
+        conf_to_merge["game"]["has_sound"] = self.manage_sound_selector.value == "Sound ON"
 
         # Checking if the word animation has been toggled
+        conf_to_merge["game"]["has_animation"] = self.manage_animation_selector.value == "Animated"
+
+        # Getting the ConfChange class and determining if a restart is required
+        conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, "")
+        if conf_change.is_updated():
+            messagebox.showinfo("Update detected", "Due to an update in the game data, the game must be restarted to "
+                                                   "apply the new settings. Click OK to proceed.")
+            quit()
