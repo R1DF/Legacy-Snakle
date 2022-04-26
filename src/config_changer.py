@@ -1,3 +1,6 @@
+# Importing TOML library
+import toml
+
 # Configurations changing module
 class ConfChange:
     def __init__(self, master, old_data, data_to_merge, location):
@@ -15,3 +18,14 @@ class ConfChange:
         self.old_data, self.data_to_merge = old_data, data_to_merge
         self.location = location
 
+    def form_new_conf(self):
+        return self.old_data | self.data_to_merge
+
+    def is_updated(self):
+        return not self.form_new_conf() == self.old_data
+
+    def upload(self):
+        """
+        This function will upload self.form_new_conf() [dict] into the specified location, with the file name of "config.toml".
+        """
+        toml.dump(self.form_new_conf(), open(self.location+"/config.toml", "w")) # this overwrites the config.toml file
