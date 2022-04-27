@@ -28,4 +28,4 @@ class ConfChange:
         """
         This function will upload self.form_new_conf() [dict] into the specified location, with the file name of "config.toml".
         """
-        toml.dump(self.form_new_conf(), open(self.location+"/config.toml", "w")) # this overwrites the config.toml file
+        toml.dump(self.form_new_conf(), open(self.location+"\\config.toml", "w")) # this overwrites the config.toml file
