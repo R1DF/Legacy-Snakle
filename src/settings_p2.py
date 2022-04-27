@@ -1,10 +1,11 @@
 # Imports
 from screen import *
+from tkinter import messagebox
 from canvas_ui.button import Button
 from canvas_ui.selector import Selector
 from canvas_ui.scale import Scale
-from necessary_defaults import THEMES_PATH, DEFAULT_THEME
-from pack_manager import PacksManager
+from config_changer import ConfChange
+from os import getcwd
 
 # Main menu canvas
 class SettingsP2(Screen):
@@ -201,7 +202,8 @@ class SettingsP2(Screen):
             70,
             text="Save Changes",
             conf=self.conf,
-            theme=self.theme
+            theme=self.theme,
+            callback=self.save_p2_changes
         )
 
         self.back_button = Button(
@@ -226,3 +228,25 @@ class SettingsP2(Screen):
     def go_to_page_1(self):
         self.master.make_settings()
         self.destroy()
+
+    def save_p2_changes(self):
+        conf_to_merge = {"text": {}} # The change-saving process is very similar to the one in P1, just changing different attributes
+
+        # Gathering data
+        conf_to_merge["text"]["fonts"] = self.selected_font_selector.values
+        conf_to_merge["text"]["default_font_family_index"] = self.selected_font_selector.value_index
+
+        conf_to_merge["text"]["text_size_huge"] = self.huge_size_scale.value
+        conf_to_merge["text"]["text_size_big"] = self.big_size_scale.value
+        conf_to_merge["text"]["text_size_mid"] = self.mid_size_scale.value
+        conf_to_merge["text"]["text_size_small"] = self.small_size_scale.value
+
+        # Using the Confchange class
+        conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, getcwd() + "\\configurations")
+        if conf_change.is_updated():
+            conf_change.upload()
+            messagebox.showinfo("Update detected", "Due to an update in the game data, the game must be restarted to "
+                                                   "apply the new settings. Click OK to proceed.")
+            quit()
+        else:
+            messagebox.showerror("No changes", "No changes were detected.")
