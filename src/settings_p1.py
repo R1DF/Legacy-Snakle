@@ -31,7 +31,8 @@ class Settings(Screen):
             self.WIDTH,
             95,
             fill=self.theme["line_fill"],
-            width=2
+            width=2,
+
         )
 
         self.game_resolution_text = self.create_text(
@@ -51,8 +52,8 @@ class Settings(Screen):
             40,
             self.conf,
             self.theme,
-            values=[f"{x}x{y}" for x, y in self.conf.get("window")["resolutions"]] # list comprehensions save the world.
-
+            values=[f"{x}x{y}" for x, y in self.conf.get("window")["resolutions"]], # list comprehensions save the world.
+            default_value_index=self.conf.get("window")["default_resolution_index"]
         )
 
         self.manage_sound_text = self.create_text(

@@ -50,7 +50,8 @@ class SettingsP2(Screen):
             40,
             self.conf,
             self.theme,
-            values=[x if len(x) <= 22 else x[:-10]+"..." for x in self.master.FONTS] # so that the font names don't have to be very long
+            values=[x if len(x) <= 22 else x[:-10]+"..." for x in self.master.FONTS], # so that the font names don't have to be very long
+            default_value_index=self.conf.get("text")["default_font_family_index"]
         )
 
         self.text_sizes_text = self.create_text(
