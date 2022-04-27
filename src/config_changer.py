@@ -22,7 +22,7 @@ class ConfChange:
         return self.old_data | self.data_to_merge
 
     def is_updated(self):
-        return not self.form_new_conf() == self.old_data
+        return self.form_new_conf() != self.old_data
 
     def upload(self):
         """
