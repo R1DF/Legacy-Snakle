@@ -1,18 +1,9 @@
-# WARNING: THIS FILE IS CRUCIAL TO HOW THE GAME WORKS. ONLY MODIFY THE DATA HERE IF YOU KNOW WHAT YOU'RE DOING!
 [window]
-resolutions = [
-    [500, 600],
-    [800, 900],
-    [100, 200]
-]
+resolutions = [ [ 500, 600,], [ 800, 900,], [ 100, 200,],]
 default_resolution_index = 0
 
 [text]
-fonts = [
-    "Franklin Gothic Medium",
-    "Calibri",
-    "Arial"
-]
+fonts = [ "Franklin Gothic Medium", "Calibri", "Arial",]
 default_font_family_index = 0
 text_size_huge = 50
 text_size_big = 30
