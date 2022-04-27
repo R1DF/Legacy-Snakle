@@ -190,8 +190,14 @@ class Settings(Screen):
         old_conf = self.conf
 
         # Below we are creating new config file with merged data from the old file and the new inputs
-        # Checking resolution settings
-        conf_to_merge["window"]["resolutions"] = self.game_resolution_selector.values
+        # Because in config.toml resolutions are represented by [L, Y] and in selectors by "LxW", we need to reformat the select res values
+
+        # Might try to make this a list comprehension
+        formatted_resolutions = []
+        for resolution in self.game_resolution_selector.values:
+            formatted_resolutions.append([int(x) for x in resolution.split("x")])
+
+        conf_to_merge["window"]["resolutions"] = formatted_resolutions
         conf_to_merge["window"]["default_resolution_index"] = self.game_resolution_selector.value_index
 
         # Checking if the sound has been toggled
@@ -200,9 +206,12 @@ class Settings(Screen):
         # Checking if the word animation has been toggled
         conf_to_merge["game"]["has_animation"] = self.manage_animation_selector.value == "Animated"
 
-        # Getting the ConfChange class and determining if a restart is required
+        # Getting the ConfChange class, determining if a restart is required and checking if there's been actual changes
         conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, "")
         if conf_change.is_updated():
+            conf_change.upload()
             messagebox.showinfo("Update detected", "Due to an update in the game data, the game must be restarted to "
                                                    "apply the new settings. Click OK to proceed.")
             quit()
+        else:
+            messagebox.showerror("No changes", "No changes were detected.")
