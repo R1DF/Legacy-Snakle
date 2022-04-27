@@ -224,7 +224,7 @@ class SettingsP2(Screen):
         self.destroy()
 
     def open_font_manager(self):
-        pass
+        self.master.make_font_manager()
 
     def go_to_page_1(self):
         self.master.make_settings()
