@@ -6,6 +6,7 @@ from necessary_defaults import THEMES_PATH, DEFAULT_THEME
 from pack_manager import PacksManager
 from config_changer import ConfChange
 from tkinter import messagebox
+from os import getcwd
 
 # Main menu canvas
 class Settings(Screen):
@@ -183,11 +184,7 @@ class Settings(Screen):
         self.destroy()
 
     def save_p1_changes(self):
-        restart_required = False # If at least one of the settings was updated, a restart is required.
         conf_to_merge = {"window": {}, "game": {}} # This file contains the data straight from the window
-
-        # Obtaining config file without the changes
-        old_conf = self.conf
 
         # Below we are creating new config file with merged data from the old file and the new inputs
         # Because in config.toml resolutions are represented by [L, Y] and in selectors by "LxW", we need to reformat the select res values
@@ -207,7 +204,7 @@ class Settings(Screen):
         conf_to_merge["game"]["has_animation"] = self.manage_animation_selector.value == "Animated"
 
         # Getting the ConfChange class, determining if a restart is required and checking if there's been actual changes
-        conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, "")
+        conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, getcwd()+"\\configurations")
         if conf_change.is_updated():
             conf_change.upload()
             messagebox.showinfo("Update detected", "Due to an update in the game data, the game must be restarted to "
