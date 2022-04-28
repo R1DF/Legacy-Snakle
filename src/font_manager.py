@@ -1,6 +1,8 @@
 # Imports
 from tkinter import Toplevel, Frame, Listbox, Label, Button, messagebox
 from font_mng_windows import *
+from config_changer import ConfChange
+from os import getcwd
 
 # FontManager class
 class FontManager(Toplevel):
@@ -46,7 +48,7 @@ class FontManager(Toplevel):
         self.rename_font_button = Button(self.right_frame, text="Rename", width=20, command=self.show_font_renamer)
         self.rename_font_button.pack(anchor="center", pady=5)
 
-        self.save_changes_font_button = Button(self.right_frame, text="Save", width=20)
+        self.save_changes_font_button = Button(self.right_frame, text="Save", width=20, command=self.save_changes)
         self.save_changes_font_button.pack(anchor="center", pady=5)
 
         self.fonts_amount_text = Label(self.right_frame, text="Amount of fonts: .../10")
@@ -87,6 +89,29 @@ class FontManager(Toplevel):
             self.fonts_listbox.delete(self.fonts_listbox.curselection())
             self.update_font_amount()
             self.selected_font_text.config(text="Selected font:\nN/A", font=["Arial", 12]) # because the selection automatically disappears
+
+    def save_changes(self):
+        if self.fonts_listbox.get(0, "end") == ():
+            messagebox.showerror("Empty list", "Please add some fonts.")
+        elif self.fonts_listbox.get(0, "end") == self.conf.get("text")["fonts"]:
+            return
+        else:
+            # Getting conf_to_merge and ConfChange class, then uploading
+            conf_to_merge = {"text": {
+                "fonts":self.fonts_listbox.get(0, "end"),
+                "default_font_family_index": self.conf.get("text")["default_font_family_index"],
+                "text_size_huge": self.conf.get("text")["text_size_huge"],
+                "text_size_big": self.conf.get("text")["text_size_big"],
+                "text_size_mid": self.conf.get("text")["text_size_mid"],
+                "text_size_small": self.conf.get("text")["text_size_small"]
+            }}
+            conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, getcwd()+"\\configurations")
+            conf_change.upload()
+
+            # Mandatory shutdown
+            messagebox.showinfo("Update detected", "Due to an update in the game data, the game must be restarted to "
+                                                   "apply the new settings. Click OK to proceed.")
+            quit()
 
     def load_fonts(self):
         for font in self.conf.get("text")["fonts"]:
