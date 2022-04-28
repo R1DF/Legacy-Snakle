@@ -12,6 +12,9 @@ Wordle has been developed by Josh Wardle. It's currently owned by the New York T
 Snakle written entirely by me on Python with the usage of the tkinter library.
 
 ## Download
-Downloads can be viewed at the Releases section of the GitHub repository. Currently, this game is only available for Windows.
-
+Currently, the game is unfinished, so there's no stable version yet.
 To run the program by source, you will need Python 3.9.0 or higher.
+
+## Extra
+If you wish to use any code here on your own project, please do so with given credit.<br>
+The code might lack comments and be untidy - This is temporary and is planned to be fixed when the first version comes.
