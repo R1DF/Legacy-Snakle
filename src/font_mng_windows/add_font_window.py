@@ -9,6 +9,7 @@ class FontAdder(Toplevel):
         self.master = master
         self.title("Add font")
         self.master.opened_window_parameters["add"] = True
+        self.resizable(False, False)
 
         # building widgets
         self.font_intro_frame = Frame(self)

@@ -10,6 +10,7 @@ class FontRenamer(Toplevel):
         self.title("Rename font")
         self.font_index = font_index # This value is the index of the selected font in the list
         self.master.opened_window_parameters["rename"] = True
+        self.resizable(False, False)
 
         # building widgets
         self.font_intro_frame = Frame(self)

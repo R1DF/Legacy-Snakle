@@ -17,6 +17,7 @@ class FontManager(Toplevel):
             "add": False,
             "rename": False
         }
+        self.resizable(False, False)
 
         # Building widgets
         self.left_frame = Frame(self)
