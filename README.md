@@ -16,5 +16,5 @@ Currently, the game is unfinished, so there's no stable version yet.
 To run the program by source, you will need Python 3.9.0 or higher.
 
 ## Extra
-If you wish to use any code here on your own project, please do so with given credit.<br>
+If you wish to use any code here on your own project that gets published, please do so with given credit (i.e. in accordance with the MIT Licence).<br>
 The code might lack comments and be untidy - This is temporary and is planned to be fixed when the first version comes.
