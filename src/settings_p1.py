@@ -31,8 +31,7 @@ class Settings(Screen):
             self.WIDTH,
             95,
             fill=self.theme["line_fill"],
-            width=2,
-
+            width=2
         )
 
         self.game_resolution_text = self.create_text(
