@@ -14,7 +14,7 @@ class LoadingBar:
             theme,
             conf,
             starting_value = 0,
-            max_value = 100
+            max_value=100
     ):
         # Initialization
         self.master = master
