@@ -24,3 +24,6 @@ scale_fill = "#FFD43B"
 scale_highlight = "#FFE873"
 scale_cursor = "YELLOW"
 scale_border = "BLACK"
+
+# LOADING BAR
+loading_bar_increase_fill = "GREEN"
