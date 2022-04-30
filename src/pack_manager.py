@@ -36,7 +36,8 @@ class PacksManager(Screen):
             400,
             40,
             self.theme,
-            self.conf
+            self.conf,
+            max_value=7
         )
 
         self.create_line(  # Divider
@@ -71,6 +72,7 @@ class PacksManager(Screen):
 
         # Binding a mouse hovering because if it clicks on the settings button, it needs to pass the event
         self.bind("<Motion>", self.handle_motion, add="+")
+        self.bind("<Button-1>", self.bar_test, add="+")
 
     def return_to_settings(self):
         self.master.make_settings()
@@ -80,4 +82,7 @@ class PacksManager(Screen):
 
     def handle_motion(self, event):
         self.event = event
+
+    def bar_test(self, event):
+        self.loader_loading_bar.increment(1)
 
