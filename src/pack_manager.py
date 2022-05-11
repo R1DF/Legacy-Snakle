@@ -2,6 +2,7 @@
 from screen import *
 from canvas_ui.button import Button
 from pack_finder import PackFinder
+from canvas_ui.pack_selector_list import PackSelectorList
 
 # Main menu canvas
 class PacksManager(Screen):
@@ -29,6 +30,16 @@ class PacksManager(Screen):
             95,
             fill=self.theme["line_fill"],
             width=2
+        )
+
+        self.pack_selector_list = PackSelectorList(
+            self,
+            self.WIDTH // 2,
+            self.HEIGHT // 2 - 30,
+            425,
+            300,
+            conf=self.conf,
+            theme=self.theme
         )
 
         self.create_line(  # Divider
