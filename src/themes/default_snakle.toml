@@ -28,3 +28,5 @@ scale_border = "BLACK"
 # LOADING BAR
 loading_bar_increase_fill = "GREEN"
 
+# SELECTOR LIST
+selector_list_fill = "#4B8BBE"
