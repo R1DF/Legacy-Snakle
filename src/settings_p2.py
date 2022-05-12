@@ -231,12 +231,26 @@ class SettingsP2(Screen):
         self.destroy()
 
     def save_p2_changes(self):
-        conf_to_merge = {"text": {}} # The change-saving process is very similar to the one in P1, just changing different attributes
+        # Validating entered input (Font values)
+        if self.huge_size_scale.value < 10 or self.huge_size_scale.value > 60:
+            messagebox.showerror("Invalid input", "The size of huge text can't be less than 10 or more than 60.")
+            return
+        elif self.big_size_scale.value < 10 or self.big_size_scale.value > 60:
+            messagebox.showerror("Invalid input", "The size of big text can't be less than 10 or more than 60.")
+            return
+        elif self.mid_size_scale.value < 10 or self.mid_size_scale.value > 60:
+            messagebox.showerror("Invalid input", "The size of medium text can't be less than 10 or more than 60.")
+            return
+        elif self.small_size_scale.value < 10 or self.small_size_scale.value > 60:
+            messagebox.showerror("Invalid input", "The size of small text can't be less than 10 or more than 60.")
+            return
 
         # Gathering data
+        conf_to_merge = {"text": {}}  # The change-saving process is very similar to the one in P1, just changing different attributes
         conf_to_merge["text"]["fonts"] = self.selected_font_selector.values
         conf_to_merge["text"]["default_font_family_index"] = self.selected_font_selector.value_index
 
+        # Saving data if all input is valid
         conf_to_merge["text"]["text_size_huge"] = self.huge_size_scale.value
         conf_to_merge["text"]["text_size_big"] = self.big_size_scale.value
         conf_to_merge["text"]["text_size_mid"] = self.mid_size_scale.value
