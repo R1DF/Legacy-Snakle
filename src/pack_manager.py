@@ -42,6 +42,43 @@ class PacksManager(Screen):
             theme=self.theme
         )
 
+        self.selected_pack_shower = self.create_text(
+            (self.WIDTH // 2) - 120,
+            460,
+            text="Selected pack:\nN/A",
+            font=[self.FONT, self.TEXT_SIZES["mid"]],
+            justify="center"
+        )
+
+        self.previous_theme_button = Button(
+            self,
+            (self.WIDTH // 2) + 40,
+            460,
+            40,
+            40,
+            text="<",
+            theme=self.theme,
+            conf=self.conf
+        )
+
+        self.page_shower = self.create_text(
+            (self.WIDTH // 2) + 120,
+            460,
+            text="Page 1",
+            font=[self.FONT, self.TEXT_SIZES["mid"]],
+        )
+
+        self.next_theme_button = Button(
+            self,
+            (self.WIDTH // 2) + 200,
+            460,
+            40,
+            40,
+            text=">",
+            theme=self.theme,
+            conf=self.conf
+        )
+
         self.create_line(  # Divider
             0,
             505,
