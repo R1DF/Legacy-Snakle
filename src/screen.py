@@ -18,7 +18,8 @@ class Screen(Canvas):
             "huge": self.conf.get("text")["text_size_huge"],
             "big": self.conf.get("text")["text_size_big"],
             "mid": self.conf.get("text")["text_size_mid"],
-            "small": self.conf.get("text")["text_size_small"]
+            "small": self.conf.get("text")["text_size_small"],
+            "tiny": self.conf.get("text")["text_size_tiny"]
         }
 
         # Calling the parent constructor
