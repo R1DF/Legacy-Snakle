@@ -25,8 +25,11 @@ scale_highlight = "#FFE873"
 scale_cursor = "YELLOW"
 scale_border = "BLACK"
 
-# LOADING BAR
+# LOADING BAR - This widget is unused, so themes do not necessarily have to need this installed.
 loading_bar_increase_fill = "GREEN"
 
-# SELECTOR LIST
+# SELECTOR LIST / ELEMENT
 selector_list_fill = "#4B8BBE"
+selector_element_fill = "" # will update later
+selector_element_highlight = "" # will update later
+selector_element_selected = "" # will update later
