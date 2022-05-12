@@ -70,8 +70,8 @@ class MainMenu(Screen):
         )
 
         self.version_text = self.create_text(
-            self.WIDTH-55,
-            self.HEIGHT-20,
+            self.WIDTH-35,
+            self.HEIGHT-10,
             text="unreleased",
             font=[self.FONT, self.TEXT_SIZES["tiny"]]
         )
