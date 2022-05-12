@@ -73,7 +73,7 @@ class MainMenu(Screen):
             self.WIDTH-55,
             self.HEIGHT-20,
             text="unreleased",
-            font=[self.FONT, self.TEXT_SIZES["small"]]
+            font=[self.FONT, self.TEXT_SIZES["tiny"]]
         )
 
     def manage_themes(self):
