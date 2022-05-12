@@ -255,6 +255,7 @@ class SettingsP2(Screen):
         conf_to_merge["text"]["text_size_big"] = self.big_size_scale.value
         conf_to_merge["text"]["text_size_mid"] = self.mid_size_scale.value
         conf_to_merge["text"]["text_size_small"] = self.small_size_scale.value
+        conf_to_merge["text"]["text_size_tiny"] = 10 # default
 
         # Using the Confchange class
         conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, getcwd() + "\\configurations")
