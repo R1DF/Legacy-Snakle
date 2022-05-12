@@ -5,10 +5,11 @@ default_resolution_index = 0
 [text]
 fonts = [ "Franklin Gothic Medium", "Calibri", "Arial",]
 default_font_family_index = 0
-text_size_huge = 50
+text_size_huge = 60
 text_size_big = 30
 text_size_mid = 20
 text_size_small = 15
+text_size_tiny = 10
 
 [widgets]
 scale_highlight_cycle_ms = 500
