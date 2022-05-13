@@ -33,7 +33,8 @@ class PackSelectorList:
         self.draw_page(1)
 
     def draw_page(self, number):
-        pass
+        self.clear() # Clears the canvas
+        packs_of_page = self.packs[((number-1) * 4):(number * 4 if number * 4 <= len(self.packs) else len(self.packs))] # Used slicing to get the correct part of the packs list to draw out
 
     def clear(self):
         pass
