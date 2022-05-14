@@ -36,11 +36,13 @@ class PackSelectorList:
 
     def draw_page(self, number):
         # Preparations before drawing
+        print(type(self.theme))
         self.clear() # Clears the canvas
         packs_of_page = self.packs[((number-1) * 4):(number * 4 if number * 4 <= len(self.packs) else len(self.packs))] # Used slicing to get the correct part of the packs list to draw out
 
         # Drawing out
         for o in range(len(packs_of_page)): # o ---> order of item
+            print(type(self.theme))
             self._selector_items.append(FileSelector(
                 self,
                 self.x,
