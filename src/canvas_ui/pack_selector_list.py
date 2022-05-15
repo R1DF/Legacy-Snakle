@@ -42,7 +42,6 @@ class PackSelectorList:
 
         # Drawing out
         for o in range(len(packs_of_page)): # o ---> order of item
-            print(type(self.theme))
             self._selector_items.append(FileSelector(
                 self,
                 self.x,
