@@ -36,7 +36,6 @@ class PackSelectorList:
 
     def draw_page(self, number):
         # Preparations before drawing
-        print(type(self.theme))
         self.clear() # Clears the canvas
         packs_of_page = self.packs[((number-1) * 4):(number * 4 if number * 4 <= len(self.packs) else len(self.packs))] # Used slicing to get the correct part of the packs list to draw out
 
@@ -45,13 +44,23 @@ class PackSelectorList:
             self._selector_items.append(FileSelector(
                 self,
                 self.x,
-                (self.y - self.offset_y) + (o * (self.offset_y/4)),
+                ((o + 2) * self.offset_y//4) + 7,  # 7 is the magic number to make the space fully conquered
                 self.offset_x,
-                o * (self.offset_y / 4),
+                self.offset_y // 4,
                 file_name=packs_of_page[o],
                 theme=self.theme,
                 conf=self.conf
             ))
+
+            if len(packs_of_page) != 4:
+                self.closing_line = self.master.create_line(
+                    self.init_coordinates[0],
+                    self._selector_items[len(self._selector_items) - 1].init_coordinates[3] + 1,
+                    self.init_coordinates[2],
+                    self._selector_items[len(self._selector_items) - 1].init_coordinates[3] + 1,
+                    width=2
+                )
+
 
     def clear(self):
         pass
