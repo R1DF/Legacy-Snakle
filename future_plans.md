@@ -5,6 +5,8 @@ This record of ideas serves to show ideas that have either been **confirmed** (p
 * Removal of a forced restart when font manager changes are saved, with the font selector being updated. **(v1.0.0)** - 29.04.22
 * Automatic game restart after settings are changed. **(v1.0.0?)** - 29.04.22
 * An ability to add custom word packs in the game. **(V1.x)** - 29.04.22
+* A feature that can make the game automatically exclude invalid packs that do not satisfy metadata requirements. **(v1.0.0/v1.1.0)** - 16.05.22
+* Adding on top of the previous feature, an ability for the pack and theme managers to display some sort of option to view discarded packs viewed as invalid. **(Refer to above)** - 16.05.22
 
 ### Tentative ideas
 * An ability to change the amount of milliseconds a scale's border changes when highlighted. - 29.04.22
