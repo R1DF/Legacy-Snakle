@@ -3,6 +3,7 @@
 # Imports
 import json  # For packs
 import os
+from .is_inside import is_inside
 
 # File Selector class
 class FileSelector:
@@ -37,16 +38,43 @@ class FileSelector:
         # Displaying data
         self.configure_display()
 
+        # Binding
+        self.master.master.bind("<Motion>", self.handle_motion, add="+")
+        #self.master.master.handle("<Button-1>", self.handle_lclick) - for later.
+
     def configure_display(self):
         # Getting file data
         self.file = json.load(open(os.getcwd() + "\\packs\\" + self.file_name, "r"))
 
         # Displays
         self.pack_title_text = self.master.master.create_text(
-            self.x - 70, #self.init_coordinates[0] + (len(self.file["title"][:20] * 6) * 1.1),
+            self.init_coordinates[0] + 140,
             self.init_coordinates[1] + 20,
             text=self.file["title"] if len(self.file["title"]) <= 20 else self.file["title"][:20]+"...",
             font=[self.master.master.FONT, self.text_data["text_size_mid"]],
             justify="left"
         )
+
+        self.pack_date_text = self.master.master.create_text(
+            self.init_coordinates[0] + 60, # might use proportions to figure out how long the X offset should be at line 46
+            self.init_coordinates[3] - 20,
+            text=self.file["dateCreated"],
+            font=[self.master.master.FONT, self.text_data["text_size_mid"]],
+            justify="right"
+        )
+
+        self.pack_date_text = self.master.master.create_text(
+            self.init_coordinates[2] - 50,
+            # might use proportions to figure out how long the X offset should be at line 46
+            self.init_coordinates[3] - 20,
+            text=self.file["creator"],
+            font=[self.master.master.FONT, self.text_data["text_size_mid"]],
+            justify="right"
+        )
+
+    def handle_motion(self, event):
+        if is_inside(event, self.init_coordinates):
+            self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_highlight"])
+        else:
+            self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_fill"])
 
