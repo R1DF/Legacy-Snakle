@@ -17,7 +17,8 @@ class PackSelectorList:
             offset_x,
             offset_y,
             conf,
-            theme
+            theme,
+            additional_callback=lambda: None
     ):
         # Initialization
         self.master = master
@@ -26,14 +27,18 @@ class PackSelectorList:
         self.theme = theme
         self.conf = conf
         self.packs = [x for x in listdir(PACKS_PATH) if x.split(".")[1] == "json"] # Only files with the JSOn extension in the "packs" directory are included
-        self._selector_items = []
+        self.selector_items = []
         self.selected = None
+        self.callback = additional_callback
 
         # Drawing rectangle
         self.rect = self.master.create_rectangle(*self.init_coordinates, width=2, fill=self.theme["selector_list_fill"])
 
         # Drawing out page
         self.draw_page(1)
+
+        # Bindings
+        self.master.bind("<Button-1>", self.handle_lclick, add="+")
 
     def draw_page(self, number):
         # Preparations before drawing
@@ -42,7 +47,7 @@ class PackSelectorList:
 
         # Drawing out
         for o in range(len(packs_of_page)): # o ---> order of item
-            self._selector_items.append(FileSelector(
+            self.selector_items.append(FileSelector(
                 self,
                 self.x,
                 ((o + 2) * self.offset_y//4) + 7,  # 7 is the magic number to make the space fully conquered
@@ -56,9 +61,9 @@ class PackSelectorList:
             if len(packs_of_page) != 4:
                 self.closing_line = self.master.create_line(
                     self.init_coordinates[0],
-                    self._selector_items[len(self._selector_items) - 1].init_coordinates[3] + 1,
+                    self.selector_items[len(self.selector_items) - 1].init_coordinates[3] + 1,
                     self.init_coordinates[2],
-                    self._selector_items[len(self._selector_items) - 1].init_coordinates[3] + 1,
+                    self.selector_items[len(self.selector_items) - 1].init_coordinates[3] + 1,
                     width=2
                 )
 
@@ -66,10 +71,23 @@ class PackSelectorList:
     def clear(self):
         pass
 
+    def handle_lclick(self, event):
+        for selector in self.selector_items:
+            if is_inside(event, self.master.bbox(selector.rect)):
+                self.select(selector)
+                break
+        else:  # yeah I use for-elses
+            self.nullify_selector()
+        self.callback()
+
+
     def select(self, selector: FileSelector):
-        self.selected.deselect()
+        if self.selected is not None:
+            self.selected.deselect()
         self.selected = selector
         self.selected.select()
 
-        # TODO: Nullify selector when the click area doesn't reach any selector
-
+    def nullify_selector(self):
+        if self.selected is not None:
+            self.selected.deselect()
+            self.selected = None
