@@ -39,7 +39,8 @@ class PacksManager(Screen):
             425,
             300,
             conf=self.conf,
-            theme=self.theme
+            theme=self.theme,
+            additional_callback=self.synchronize_selector
         )
 
         self.selected_pack_shower = self.create_text(
@@ -111,3 +112,13 @@ class PacksManager(Screen):
 
     def handle_motion(self, event):
         self.event = event
+
+    def synchronize_selector(self):
+        if self.pack_selector_list.selected is not None:
+            self.itemconfig(
+                self.selected_pack_shower,
+                text=f"Selected pack:\n{self.pack_selector_list.selected.file_title[:17]+'...'if len(self.pack_selector_list.selected.file_title) > 17 else self.pack_selector_list.selected.file_title}"
+        )
+        else:
+            self.itemconfig(self.selected_pack_shower, text="Selected pack:\nN/A")
+
