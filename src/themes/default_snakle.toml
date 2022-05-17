@@ -31,5 +31,5 @@ loading_bar_increase_fill = "GREEN"
 # SELECTOR LIST / ELEMENT
 selector_list_fill = "#4B8BBE"
 selector_element_fill = "#4B8BBE"
-selector_element_highlight = "#60ADEB" # will update later
-selector_element_selected = "" # will update later
+selector_element_highlight = "#60ADEB"
+selector_element_selected = "YELLOW"
