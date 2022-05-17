@@ -41,11 +41,11 @@ class FileSelector:
 
         # Binding
         self.master.master.bind("<Motion>", self.handle_motion, add="+")
-        self.master.master.handle("<Button-1>", self.handle_lclick)
 
     def configure_display(self):
         # Getting file data
         self.file = json.load(open(os.getcwd() + "\\packs\\" + self.file_name, "r"))
+        self.file_title = self.file["title"]
 
         # Displays
         self.pack_title_text = self.master.master.create_text(
@@ -75,17 +75,17 @@ class FileSelector:
 
     def handle_motion(self, event):
         if is_inside(event, self.init_coordinates):
-            self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_highlight"])
+            if not self.is_selected:
+                self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_highlight"])
         else:
-            self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_fill"])
-
-    def handle_lclick(self, event):
-        if is_inside(event, self.init_coordinates):
-            self.master.select(self)
+            if not self.is_selected:
+                self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_fill"])
+            else:
+                self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_selected"])
 
     def select(self):
         self.is_selected = True
-        self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_select"])
+        self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_selected"])
 
     def deselect(self):
         self.is_selected = False
