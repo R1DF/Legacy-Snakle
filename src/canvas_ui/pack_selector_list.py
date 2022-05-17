@@ -27,6 +27,7 @@ class PackSelectorList:
         self.conf = conf
         self.packs = [x for x in listdir(PACKS_PATH) if x.split(".")[1] == "json"] # Only files with the JSOn extension in the "packs" directory are included
         self._selector_items = []
+        self.selected = None
 
         # Drawing rectangle
         self.rect = self.master.create_rectangle(*self.init_coordinates, width=2, fill=self.theme["selector_list_fill"])
@@ -64,4 +65,11 @@ class PackSelectorList:
 
     def clear(self):
         pass
+
+    def select(self, selector: FileSelector):
+        self.selected.deselect()
+        self.selected = selector
+        self.selected.select()
+
+        # TODO: Nullify selector when the click area doesn't reach any selector
 

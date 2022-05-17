@@ -27,6 +27,7 @@ class FileSelector:
         self.conf = conf
         self.text_data = conf.get("text")
         self.file_title = ""
+        self.is_selected = False
 
         # Drawing
         self.rect = self.master.master.create_rectangle(
@@ -40,7 +41,7 @@ class FileSelector:
 
         # Binding
         self.master.master.bind("<Motion>", self.handle_motion, add="+")
-        #self.master.master.handle("<Button-1>", self.handle_lclick) - for later.
+        self.master.master.handle("<Button-1>", self.handle_lclick)
 
     def configure_display(self):
         # Getting file data
@@ -78,3 +79,14 @@ class FileSelector:
         else:
             self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_fill"])
 
+    def handle_lclick(self, event):
+        if is_inside(event, self.init_coordinates):
+            self.master.select(self)
+
+    def select(self):
+        self.is_selected = True
+        self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_select"])
+
+    def deselect(self):
+        self.is_selected = False
+        self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_fill"])
