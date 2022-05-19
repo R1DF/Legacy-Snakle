@@ -64,7 +64,7 @@ class FileSelector:
             justify="right"
         )
 
-        self.pack_date_text = self.master.master.create_text(
+        self.pack_creator_text = self.master.master.create_text(
             self.init_coordinates[2] - 50,
             # might use proportions to figure out how long the X offset should be at line 46
             self.init_coordinates[3] - 20,
@@ -90,3 +90,10 @@ class FileSelector:
     def deselect(self):
         self.is_selected = False
         self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_fill"])
+
+    def kill(self):
+        self.is_selected = False
+        self.master.master.delete(self.rect)
+        self.master.master.delete(self.pack_title_text)
+        self.master.master.delete(self.pack_date_text)
+        self.master.master.delete(self.pack_creator_text)
