@@ -51,7 +51,7 @@ class PacksManager(Screen):
             justify="center"
         )
 
-        self.previous_theme_button = Button(
+        self.previous_page_button = Button(
             self,
             (self.WIDTH // 2) + 40,
             460,
@@ -59,7 +59,8 @@ class PacksManager(Screen):
             40,
             text="<",
             theme=self.theme,
-            conf=self.conf
+            conf=self.conf,
+            callback=self.previous_page
         )
 
         self.page_shower = self.create_text(
@@ -69,7 +70,7 @@ class PacksManager(Screen):
             font=[self.FONT, self.TEXT_SIZES["mid"]],
         )
 
-        self.next_theme_button = Button(
+        self.next_page_button = Button(
             self,
             (self.WIDTH // 2) + 200,
             460,
@@ -77,7 +78,8 @@ class PacksManager(Screen):
             40,
             text=">",
             theme=self.theme,
-            conf=self.conf
+            conf=self.conf,
+            callback=self.next_page
         )
 
         self.create_line(  # Divider
@@ -122,3 +124,23 @@ class PacksManager(Screen):
         else:
             self.itemconfig(self.selected_pack_shower, text="Selected pack:\nN/A")
 
+
+    def next_page(self):
+        if self.pack_selector_list.page < self.pack_selector_list.max_pages:
+            # Drawing out the selectors
+            self.pack_selector_list.clear()
+            self.pack_selector_list.page += 1
+            self.pack_selector_list.draw_page(self.pack_selector_list.page)
+
+            # Modifying the page text
+            self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.page}")
+
+    def previous_page(self):
+        if self.pack_selector_list.page > 1:
+            # Drawing out the selectors
+            self.pack_selector_list.clear()
+            self.pack_selector_list.page -= 1
+            self.pack_selector_list.draw_page(self.pack_selector_list.page)
+
+            # Modifying the page text
+            self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.page}")

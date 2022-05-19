@@ -3,6 +3,7 @@ from tkinter import Canvas
 from .file_selector import FileSelector
 from .is_inside import is_inside
 from os import getcwd, listdir
+from math import ceil # To get max page conversion
 
 # PACKS PATH file
 PACKS_PATH = getcwd() +"\\packs\\"
@@ -30,12 +31,14 @@ class PackSelectorList:
         self.selector_items = []
         self.selected = None
         self.callback = additional_callback
+        self.page = 1
+        self.max_pages = ceil(len(self.packs)/4)
 
         # Drawing rectangle
         self.rect = self.master.create_rectangle(*self.init_coordinates, width=2, fill=self.theme["selector_list_fill"])
 
         # Drawing out page
-        self.draw_page(1)
+        self.draw_page(self.page)
 
         # Bindings
         self.master.bind("<Button-1>", self.handle_lclick, add="+")
@@ -69,7 +72,11 @@ class PackSelectorList:
 
 
     def clear(self):
-        pass
+        for selector in self.selector_items:
+            #del self.selector_items[self.selector_items.index(selector)] mfw del doesn't work or else the program goes crazy
+            selector.kill()
+
+        self.selector_items = []
 
     def handle_lclick(self, event):
         for selector in self.selector_items:
