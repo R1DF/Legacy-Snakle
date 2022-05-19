@@ -1,5 +1,5 @@
 [window]
-resolutions = [ [ 500, 600,], [ 800, 900,], [ 100, 200,],]
+resolutions = [ [ 500, 600,], [ 800, 900,], ]
 default_resolution_index = 0
 
 [text]
