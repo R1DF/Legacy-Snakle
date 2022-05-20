@@ -3,9 +3,9 @@ from tkinter import Canvas
 from .file_selector import FileSelector
 from .is_inside import is_inside
 from os import getcwd, listdir
-from math import ceil # To get max page conversion
+from math import ceil  # To get max page conversion
 
-# PACKS PATH file
+# must get the path for packs.
 PACKS_PATH = getcwd() +"\\packs\\"
 
 # Pack Selector List class
@@ -19,7 +19,8 @@ class PackSelectorList:
             offset_y,
             conf,
             theme,
-            additional_callback=lambda: None
+            additional_callback=lambda: None,
+            callback_upon_selected_click=lambda: None # the function that runs when you click an already selected pack
     ):
         # Initialization
         self.master = master
@@ -31,6 +32,7 @@ class PackSelectorList:
         self.selector_items = []
         self.selected = None
         self.callback = additional_callback
+        self.selected_callback = callback_upon_selected_click
         self.page = 1
         self.max_pages = ceil(len(self.packs)/4)
 
@@ -79,6 +81,13 @@ class PackSelectorList:
         self.selector_items = []
 
     def handle_lclick(self, event):
+        # Checking if a selected selector was selected again
+        if self.selected is not None:
+            if is_inside(event, self.master.bbox(self.selected.rect)):
+                self.selected_callback()
+                return
+
+        # Otherwise...
         for selector in self.selector_items:
             if is_inside(event, self.master.bbox(selector.rect)):
                 self.select(selector)

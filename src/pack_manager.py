@@ -40,7 +40,8 @@ class PacksManager(Screen):
             300,
             conf=self.conf,
             theme=self.theme,
-            additional_callback=self.synchronize_selector
+            additional_callback=self.synchronize_selector,
+            callback_upon_selected_click=self.show_pack_info
         )
 
         self.selected_pack_shower = self.create_text(
@@ -144,3 +145,6 @@ class PacksManager(Screen):
 
             # Modifying the page text
             self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.page}")
+
+    def show_pack_info(self):
+        print("Hi")
