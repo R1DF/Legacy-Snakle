@@ -147,4 +147,4 @@ class PacksManager(Screen):
             self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.page}")
 
     def show_pack_info(self):
-        print("Hi")
+        self.master.make_pack_information_shower(self.pack_selector_list.selected.file_name)
