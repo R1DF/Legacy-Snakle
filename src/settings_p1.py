@@ -135,9 +135,9 @@ class Settings(Screen):
             conf=self.conf,
             theme=self.theme,
             callback=self.go_to_page_2
-        ) # add a page counter
+        )
 
-        self.create_line(  # Another divider woooow
+        self.create_line(
             0,
             485,
             self.WIDTH,
