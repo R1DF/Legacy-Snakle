@@ -13,13 +13,15 @@ class FontManager(Toplevel):
         self.master.is_font_manager_open = True
         self.title("Snakle - Fonts")
         self.geometry("600x400")
-        self.protocol("WM_DELETE_WINDOW", self.handle_exit)
         self.conf = self.master.conf
         self.opened_window_parameters = {
             "add": False,
             "rename": False
         }
         self.resizable(False, False)
+
+        # Deletion protocol
+        self.protocol("WM_DELETE_WINDOW", self.handle_exit)
 
         # Building widgets
         self.left_frame = Frame(self)
