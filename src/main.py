@@ -7,6 +7,7 @@ from main_menu import *
 from settings_p1 import Settings
 from settings_p2 import SettingsP2
 from font_manager import FontManager
+from pack_information_shower import PackInfoShower
 
 # Making the window
 class App(Tk):
@@ -24,6 +25,7 @@ class App(Tk):
         self.geometry(f"{self.WIDTH}x{self.HEIGHT}")
         self.resizable(False, False)
         self.is_font_manager_open = False
+        self.is_pack_information_shower_open = False
 
         # Getting theme data
         self.theme_loader = ThemeLoader(self)
@@ -53,6 +55,10 @@ class App(Tk):
     def make_font_manager(self):
         if not self.is_font_manager_open:
             self.font_manager = FontManager(self)
+
+    def make_pack_information_shower(self, pack_name):
+        if not self.is_pack_information_shower_open:
+            self.is_pack_information_shower_open = PackInfoShower(self, pack_name)
 
     def handle_exit(self):
         if messagebox.askyesno("Confirm exit", "Are you sure you want to exit?"):
