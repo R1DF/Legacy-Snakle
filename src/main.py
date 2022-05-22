@@ -8,10 +8,15 @@ from settings_p1 import Settings
 from settings_p2 import SettingsP2
 from font_manager import FontManager
 from pack_information_shower import PackInfoShower
+from clearance_checker import ClearanceChecker
+import os
 
 # Making the window
 class App(Tk):
     def __init__(self):
+        # Checking clearance
+        ClearanceChecker(os.getcwd()+"\\packs\\").check_files()
+
         # Initialization of the window
         Tk.__init__(self)
         self.title("Snakle")
