@@ -57,7 +57,7 @@ class FileSelector:
         )
 
         self.pack_date_text = self.master.master.create_text(
-            self.init_coordinates[0] + 60, # might use proportions to figure out how long the X offset should be at line 46
+            self.init_coordinates[0] + 80, # might use proportions to figure out how long the X offset should be at line 46
             self.init_coordinates[3] - 20,
             text=self.file["dateCreated"],
             font=[self.master.master.FONT, self.text_data["text_size_mid"]],
