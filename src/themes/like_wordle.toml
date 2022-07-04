@@ -1,5 +1,35 @@
 [meta]
 name = "Just Like Wordle"
 author = "R1DF"
-date = [0, 0, 2022]
-description = "For those who want the game to feel like the original Wordle."
+date = "01.01.2022"
+description = "Would you like the standard Wordle experience instead?"
+
+[data]
+# MISC.
+bg = "#4B8BBE"
+text_fill = "GREEN"
+text_invalid = "ORANGE"
+line_fill = "BLACK"
+
+# BUTTON
+button_fill = "BLUE"
+button_highlight = "RED"
+
+# SELECTOR
+selector_fill = "#FFD43B"
+selector_highlight = "#FFE873"
+
+# SCALE
+scale_fill = "#FFD43B"
+scale_highlight = "BLUE"
+scale_cursor = "WHITE"
+scale_border = "RED"
+
+# LOADING BAR - This widget is unused, so themes do not necessarily have to need this installed.
+loading_bar_increase_fill = "GREEN"
+
+# SELECTOR LIST / ELEMENT
+selector_list_fill = "#4B8BBE"
+selector_element_fill = "#4B8BBE"
+selector_element_highlight = "#60ADEB"
+selector_element_selected = "YELLOW"

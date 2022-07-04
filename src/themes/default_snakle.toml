@@ -1,7 +1,7 @@
 [meta]
 name = "Snakle Default"
 author = "R1DF"
-date = [0, 0, 2022]
+date = "01.01.2022"
 description = "The default theme for Snakle with Python colours."
 
 [data]

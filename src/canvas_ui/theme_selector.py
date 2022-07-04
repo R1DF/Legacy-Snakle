@@ -1,12 +1,10 @@
-## TODO: rename class to PackSelector, ThemeSelector will have something else
-
 # Imports
-import json  # For packs
+import toml  # For packs
 import os
 from .is_inside import is_inside
 
 # File Selector class
-class FileSelector:
+class ThemeSelector:
     def __init__(
             self,
             master,
@@ -44,31 +42,31 @@ class FileSelector:
 
     def configure_display(self):
         # Getting file data
-        self.file = json.load(open(os.getcwd() + "\\packs\\" + self.file_name, "r"))
-        self.file_title = self.file["title"]
+        self.file = toml.load(os.getcwd() + "\\themes\\" + self.file_name)
+        self.file_metadata = self.file["meta"]
 
         # Displays
-        self.pack_title_text = self.master.master.create_text(
+        self.theme_name_text = self.master.master.create_text(
             self.init_coordinates[0] + 140,
             self.init_coordinates[1] + 20,
-            text=self.file["title"] if len(self.file["title"]) <= 20 else self.file["title"][:20]+"...",
+            text=self.file_metadata["name"] if len(self.file_metadata["name"]) <= 20 else self.file_metadata["name"][:20]+"...",
             font=[self.master.master.FONT, self.text_data["text_size_mid"]],
             justify="left"
         )
 
-        self.pack_date_text = self.master.master.create_text(
+        self.theme_date_text = self.master.master.create_text(
             self.init_coordinates[0] + 80, # might use proportions to figure out how long the X offset should be at line 46
             self.init_coordinates[3] - 20,
-            text=self.file["dateCreated"],
+            text=self.file_metadata["date"],
             font=[self.master.master.FONT, self.text_data["text_size_mid"]],
             justify="right"
         )
 
-        self.pack_creator_text = self.master.master.create_text(
+        self.theme_creator_text = self.master.master.create_text(
             self.init_coordinates[2] - 50,
             # might use proportions to figure out how long the X offset should be at line 46
             self.init_coordinates[3] - 20,
-            text=self.file["creator"],
+            text=self.file_metadata["author"],
             font=[self.master.master.FONT, self.text_data["text_size_mid"]],
             justify="right"
         )
@@ -94,6 +92,6 @@ class FileSelector:
     def kill(self):
         self.is_selected = False
         self.master.master.delete(self.rect)
-        self.master.master.delete(self.pack_title_text)
-        self.master.master.delete(self.pack_date_text)
-        self.master.master.delete(self.pack_creator_text)
+        self.master.master.delete(self.theme_name_text)
+        self.master.master.delete(self.theme_date_text)
+        self.master.master.delete(self.theme_creator_text)

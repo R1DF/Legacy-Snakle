@@ -25,7 +25,7 @@ class Settings(Screen):
             font=[self.FONT, self.TEXT_SIZES["huge"]]
         )
 
-        self.create_line( # This serves just as a divider between the title and settings
+        self.create_line(  # This serves just as a divider between the title and settings
             0,
             95,
             self.WIDTH,
