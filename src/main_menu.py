@@ -30,7 +30,8 @@ class MainMenu(Screen):
             70,
             conf=self.conf,
             theme=self.theme,
-            text="New Snakle"
+            text="New Snakle",
+            callback=self.request_game
         )
 
         self.themes_button = Button(
@@ -84,5 +85,9 @@ class MainMenu(Screen):
 
     def show_settings(self):
         self.master.make_settings()
+        self.destroy()
+
+    def request_game(self):
+        self.master.make_game_init_menu()
         self.destroy()
 
