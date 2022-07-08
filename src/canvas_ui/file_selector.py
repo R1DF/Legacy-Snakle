@@ -1,0 +1,2 @@
+class FileSelector:
+    pass
