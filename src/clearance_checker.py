@@ -38,3 +38,4 @@ class ClearanceChecker:
         for pack in os.listdir(self.packs_path):
             if f"c_{pack}" not in os.listdir(self.clearances_path):
                 json.dump({"file": pack, "clear_words": []}, open(self.clearances_path+f"c_{pack}", "w"))
+
