@@ -17,3 +17,4 @@ scale_highlight_cycle_ms = 500
 [game]
 has_sound = true
 has_animation = true
+allow_test_screen = false
