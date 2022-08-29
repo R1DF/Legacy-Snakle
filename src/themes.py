@@ -2,7 +2,7 @@
 from screen import *
 from canvas_ui.button import Button
 from necessary_defaults import THEMES_PATH, DEFAULT_THEME
-from canvas_ui.theme_selector_list import ThemeSelectorList
+from canvas_ui.file_selector_list import FileSelectorList
 from os import getcwd
 from tkinter import messagebox
 import toml
@@ -34,14 +34,16 @@ class Themes(Screen):
             width=2
         )
 
-        self.theme_selector_list = ThemeSelectorList(
+        self.theme_selector_list = FileSelectorList(
             self,
             self.WIDTH // 2,
             self.HEIGHT // 2 - 30,
             425,
             270,
+            getcwd() + "\\themes\\",
             conf=self.conf,
             theme=self.theme,
+            file_type="theme",
             additional_callback=self.synchronize_selector,
             callback_upon_selected_click=self.switch_theme
         )
@@ -111,37 +113,37 @@ class Themes(Screen):
         self.destroy()
 
     def synchronize_selector(self):
-        if self.theme_selector_list.selected is not None:
+        if self.theme_selector_list.selected_selector is not None:
             self.itemconfig(
                 self.selected_theme_shower,
-                text=f"Selected theme:\n{self.theme_selector_list.selected.file_metadata['name'][:17]+'...'if len(self.theme_selector_list.selected.file_metadata['name']) > 17 else self.theme_selector_list.selected.file_metadata['name']}"
+                text=f"Selected theme:\n{self.theme_selector_list.selected_selector.file_title[:17]+'...'if len(self.theme_selector_list.selected_selector.file_title) > 17 else self.theme_selector_list.selected_selector.file_title}"
         )
 
         else:
             self.itemconfig(self.selected_theme_shower, text="Selected theme:\nN/A")
 
     def previous_page(self):
-        if self.theme_selector_list.page > 1:
+        if self.theme_selector_list.current_page > 1:
             # Drawing out the selectors
             self.theme_selector_list.clear()
-            self.theme_selector_list.page -= 1
-            self.theme_selector_list.draw_page(self.theme_selector_list.page)
+            self.theme_selector_list.current_page -= 1
+            self.theme_selector_list.draw_page(self.theme_selector_list.current_page)
 
             # Modifying the page text
-            self.itemconfig(self.page_shower, text=f"Page {self.theme_selector_list.page}")
+            self.itemconfig(self.page_shower, text=f"Page {self.theme_selector_list.current_page}")
 
     def next_page(self):
-        if self.theme_selector_list.page < self.theme_selector_list.max_pages:
+        if self.theme_selector_list.current_page < self.theme_selector_list.max_page_amount:
             # Drawing out the selectors
             self.theme_selector_list.clear()
-            self.theme_selector_list.page += 1
-            self.theme_selector_list.draw_page(self.theme_selector_list.page)
+            self.theme_selector_list.current_page += 1
+            self.theme_selector_list.draw_page(self.theme_selector_list.current_page)
 
             # Modifying the page text
-            self.itemconfig(self.page_shower, text=f"Page {self.theme_selector_list.page}")
+            self.itemconfig(self.page_shower, text=f"Page {self.theme_selector_list.current_page}")
 
     def switch_theme(self):
-        selected_theme_file = self.theme_selector_list.selected.file_name
+        selected_theme_file = self.theme_selector_list.selected_selector.file_name
         toml.dump({
             "default": selected_theme_file
         }, open(getcwd() + "\\default_theme.toml", "w"))

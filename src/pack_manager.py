@@ -2,7 +2,8 @@
 from screen import *
 from canvas_ui.button import Button
 from pack_finder import PackFinder
-from canvas_ui.pack_selector_list import PackSelectorList
+from canvas_ui.file_selector_list import FileSelectorList
+from os import getcwd
 
 # Main menu canvas
 class PacksManager(Screen):
@@ -32,14 +33,17 @@ class PacksManager(Screen):
             width=2
         )
 
-        self.pack_selector_list = PackSelectorList(
+        self.pack_selector_list = FileSelectorList(
             self,
             self.WIDTH // 2,
             self.HEIGHT // 2 - 30,
             425,
             300,
+            overlooked_directory=getcwd() + "\\packs\\",
             conf=self.conf,
             theme=self.theme,
+            extension="json",
+            file_type="pack",
             additional_callback=self.synchronize_selector,
             callback_upon_selected_click=self.show_pack_info
         )
@@ -117,34 +121,34 @@ class PacksManager(Screen):
         self.event = event
 
     def synchronize_selector(self):
-        if self.pack_selector_list.selected is not None:
+        if self.pack_selector_list.selected_selector is not None:
             self.itemconfig(
                 self.selected_pack_shower,
-                text=f"Selected pack:\n{self.pack_selector_list.selected.file_title[:17]+'...'if len(self.pack_selector_list.selected.file_title) > 17 else self.pack_selector_list.selected.file_title}"
+                text=f"Selected pack:\n{self.pack_selector_list.selected_selector.file_title[:17]+'...'if len(self.pack_selector_list.selected_selector.file_title) > 17 else self.pack_selector_list.selected_selector.file_title}"
         )
         else:
             self.itemconfig(self.selected_pack_shower, text="Selected pack:\nN/A")
 
 
     def next_page(self):
-        if self.pack_selector_list.page < self.pack_selector_list.max_pages:
+        if self.pack_selector_list.current_page < self.pack_selector_list.max_page_amount:
             # Drawing out the selectors
             self.pack_selector_list.clear()
-            self.pack_selector_list.page += 1
-            self.pack_selector_list.draw_page(self.pack_selector_list.page)
+            self.pack_selector_list.current_page += 1
+            self.pack_selector_list.draw_page(self.pack_selector_list.current_page)
 
             # Modifying the page text
-            self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.page}")
+            self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.current_page}")
 
     def previous_page(self):
-        if self.pack_selector_list.page > 1:
+        if self.pack_selector_list.current_page > 1:
             # Drawing out the selectors
             self.pack_selector_list.clear()
-            self.pack_selector_list.page -= 1
-            self.pack_selector_list.draw_page(self.pack_selector_list.page)
+            self.pack_selector_list.current_page -= 1
+            self.pack_selector_list.draw_page(self.pack_selector_list.current_page)
 
             # Modifying the page text
-            self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.page}")
+            self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.current_page}")
 
     def show_pack_info(self):
-        self.master.make_pack_information_shower(self.pack_selector_list.selected.file_name)
+        self.master.make_pack_information_shower(self.pack_selector_list.selected_selector.file_name)

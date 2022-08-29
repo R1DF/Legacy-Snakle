@@ -1,9 +1,9 @@
 # Imports
 from screen import *
 from canvas_ui.button import Button
-from canvas_ui.pack_selector_list import PackSelectorList
+from canvas_ui.file_selector_list import FileSelectorList
 from necessary_defaults import THEMES_PATH, DEFAULT_THEME
-
+from os import getcwd
 
 # Game initialization canvas
 class GameInitMenu(Screen):
@@ -29,12 +29,16 @@ class GameInitMenu(Screen):
             font=[self.FONT, self.TEXT_SIZES["mid"]]
         )
 
-        self.pack_selector_list = PackSelectorList(
+        self.pack_selector_list = FileSelectorList(
             self,
             self.WIDTH // 2,
+            self.HEIGHT // 2,
             425,
-            425,
-            100,
+            300,
+            overlooked_directory= getcwd() + "\\packs\\",
             conf=self.conf,
             theme=self.theme,
+            extension="json",
+            file_type="pack"
         )
+
