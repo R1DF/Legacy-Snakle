@@ -77,6 +77,10 @@ class MainMenu(Screen):
             font=[self.FONT, self.TEXT_SIZES["tiny"]]
         )
 
+        # Binding the test screen
+        if self.conf.get("game")["allow_test_screen"]:
+            self.master.bind("<8>", self.show_test_screen)
+
     def manage_themes(self):
         self.master.themes = Themes(self.master, self.master.theme_loader.load_theme(THEMES_PATH + DEFAULT_THEME),
                                         self.conf)
@@ -85,6 +89,11 @@ class MainMenu(Screen):
 
     def show_settings(self):
         self.master.make_settings()
+        self.destroy()
+
+    def show_test_screen(self, event=None):
+        self.master.make_test_screen()
+        self.master.unbind("<8>")
         self.destroy()
 
     def request_game(self):

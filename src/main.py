@@ -7,6 +7,7 @@ from main_menu import *
 from settings_p1 import Settings
 from settings_p2 import SettingsP2
 from font_manager import FontManager
+from testscreen import TestScreen
 from pack_information_shower import PackInfoShower
 from gameinitmenu import GameInitMenu
 from clearance_checker import ClearanceChecker
@@ -61,6 +62,10 @@ class App(Tk):
     def make_game_init_menu(self):
         self.game_init_menu = GameInitMenu(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
         self.game_init_menu.pack(expand=1, fill="both")
+
+    def make_test_screen(self):
+        self.test_screen = TestScreen(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
+        self.test_screen.pack(expand=1, fill="both")
 
     def make_font_manager(self):
         if not self.is_font_manager_open:
