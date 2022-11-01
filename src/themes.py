@@ -150,3 +150,4 @@ class Themes(Screen):
         messagebox.showinfo("Update detected", "Due to an update in the game data, the game must be restarted to "
                                                "apply the new settings. Click OK to proceed.")
         quit()
+
