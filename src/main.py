@@ -1,4 +1,5 @@
 # Imports
+import os
 from tkinter import Tk, messagebox, PhotoImage # window GUI
 from config_loader import ConfigLoader
 from theme_loader import ThemeLoader
@@ -10,8 +11,8 @@ from font_manager import FontManager
 from testscreen import TestScreen
 from pack_information_shower import PackInfoShower
 from gameinitmenu import GameInitMenu
+from game_screen import GameScreen
 from clearance_checker import ClearanceChecker
-import os
 
 # Making the window
 class App(Tk):
@@ -62,6 +63,10 @@ class App(Tk):
     def make_game_init_menu(self):
         self.game_init_menu = GameInitMenu(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
         self.game_init_menu.pack(expand=1, fill="both")
+
+    def make_game(self, word_pack):
+        self.game = GameScreen(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf, word_pack)
+        self.game.pack(expand=1, fill="both")
 
     def make_test_screen(self):
         self.test_screen = TestScreen(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
