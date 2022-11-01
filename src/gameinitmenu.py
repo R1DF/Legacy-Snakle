@@ -1,10 +1,11 @@
 # Imports
+import json
 from screen import *
 from canvas_ui.button import Button
 from canvas_ui.file_selector_list import FileSelectorList
 from necessary_defaults import THEMES_PATH, DEFAULT_THEME
 from os import getcwd
-from key_edit_window import URLConfigurator
+from tkinter import messagebox
 
 # Game initialization canvas
 class GameInitMenu(Screen):
@@ -35,7 +36,8 @@ class GameInitMenu(Screen):
             theme=self.theme,
             extension="json",
             file_type="pack",
-            additional_callback=self.synchronize_selector
+            additional_callback=self.synchronize_selector,
+            callback_upon_selected_click=self.play
         )
 
         self.selected_pack_shower = self.create_text(
@@ -86,39 +88,23 @@ class GameInitMenu(Screen):
             width=2
         )
 
-        self.modify_words_url_button = Button(
-            self,
+        self.words_amount_text = self.create_text(
             self.WIDTH // 2,
             480,
-            450,
-            50,
-            text="Play with URL (requires internet)",
-            theme=self.theme,
-            conf=self.conf,
-            callback=self.open_url_configurator
+            text="Words: N/A",
+            font=[self.FONT, self.TEXT_SIZES["mid"]]
         )
 
         self.back_button = Button(
             self,
-            self.WIDTH // 2 - 125,
+            self.WIDTH // 2,
             550,
-            200,
+            400,
             60,
             text="Back",
             theme=self.theme,
             conf=self.conf,
             callback=self.return_to_main_menu
-        )
-
-        self.play_offline_button = Button(
-            self,
-            self.WIDTH // 2 + 125,
-            550,
-            200,
-            60,
-            text="Play (offline)",
-            theme=self.theme,
-            conf=self.conf
         )
 
     def return_to_main_menu(self):
@@ -127,11 +113,16 @@ class GameInitMenu(Screen):
 
     def synchronize_selector(self):
         if self.pack_selector_list.selected_selector is not None:
+            words = len(
+                json.load(open(getcwd() + "\\packs\\" + self.pack_selector_list.selected_selector.file_name))["words"])
+            self.itemconfig(self.words_amount_text, text=f"Words: {words}")
+
             self.itemconfig(
                 self.selected_pack_shower,
                 text=f"Selected pack:\n{self.pack_selector_list.selected_selector.file_title[:17]+'...'if len(self.pack_selector_list.selected_selector.file_title) > 17 else self.pack_selector_list.selected_selector.file_title}"
         )
         else:
+            self.itemconfig(self.words_amount_text, text="Words: N/A")
             self.itemconfig(self.selected_pack_shower, text="Selected pack:\nN/A")
 
     def next_page(self):
@@ -154,6 +145,7 @@ class GameInitMenu(Screen):
             # Modifying the page text
             self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.current_page}")
 
-    def open_url_configurator(self):
-        if not self.opened_url_configurator:
-            self.url_configurator = URLConfigurator(self)
+    def play(self):
+        self.master.make_game(json.load(open(getcwd() + "\\packs\\" + self.pack_selector_list.selected_selector.file_name, "r")))
+        self.destroy()
+
