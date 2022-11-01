@@ -33,3 +33,12 @@ selector_list_fill = "#4B8BBE"
 selector_element_fill = "#4B8BBE"
 selector_element_highlight = "#60ADEB"
 selector_element_selected = "YELLOW"
+
+# GRID
+#grid_square_fill =
+#grid_square_correct =
+#grid_square_mismatched =
+#grid_square_incorrect =
+#grid_square_outline =
+#grid_square_text_fill =
+
