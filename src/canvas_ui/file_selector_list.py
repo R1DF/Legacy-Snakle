@@ -20,7 +20,7 @@ class FileSelectorList():
             file_type,
             extension="toml",
             additional_callback=lambda: None,
-            callback_upon_selected_click=lambda: None # the function that runs when you click an already selected file
+            callback_upon_selected_click=lambda: None  # the function that runs when you click an already selected file
     ):
         # Initialization
         self.master = master
