@@ -34,6 +34,14 @@ class Button:
         self.master.bind("<Motion>", self.handle_motion, add="+")
         self.master.bind("<Button-1>", self.handle_lclick, add="+")
 
+    def hide(self):
+        self.master.itemconfig(self.rect, state="hidden")
+        self.master.itemconfig(self.label, state="hidden")
+
+    def show(self):
+        self.master.itemconfig(self.rect, state="normal")
+        self.master.itemconfig(self.label, state="normal")
+
     def handle_motion(self, event):
         if is_inside(event, self.init_coordinates):
             self.master.itemconfig(self.rect, fill=self.theme["button_highlight"])
