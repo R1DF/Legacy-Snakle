@@ -69,3 +69,4 @@ class GameScreen(Screen):
     def back_to_menu(self):
         self.master.make_main_menu()
         self.destroy()
+
