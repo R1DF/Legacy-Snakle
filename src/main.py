@@ -22,7 +22,7 @@ class App(Tk):
 
         # Initialization of the window
         Tk.__init__(self)
-        self.title("Snakle")
+        self.title("Legacy Snakle")
 
         # Getting configurations
         self.conf = ConfigLoader(CONF_PATH+CONF_FILE)
@@ -64,8 +64,8 @@ class App(Tk):
         self.game_init_menu = GameInitMenu(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf)
         self.game_init_menu.pack(expand=1, fill="both")
 
-    def make_game(self, word_pack):
-        self.game = GameScreen(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf, word_pack)
+    def make_game(self, word_pack, pack_file_name):
+        self.game = GameScreen(self, self.theme_loader.load_theme(THEMES_PATH+DEFAULT_THEME), self.conf, word_pack, pack_file_name)
         self.game.pack(expand=1, fill="both")
 
     def make_test_screen(self):
