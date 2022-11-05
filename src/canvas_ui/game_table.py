@@ -2,11 +2,6 @@
 from tkinter import Canvas
 from .is_inside import is_inside
 
-# Box class
-class Box:
-    def __init__(self, master, x, y):
-        pass
-
 # Table class
 class WordTable:
     def __init__(
@@ -16,8 +11,11 @@ class WordTable:
             starting_y,
             offset,
             gap_x,
+            word,
+            valid_words,
             conf,
-            theme
+            theme,
+            update_callback=lambda x, y: None
     ):
         # Initialization
         self.master = master
@@ -30,9 +28,12 @@ class WordTable:
         self.height = (6 * self.square_width) + (5 * self.gap_length)
         self.selected_row_number = 1
         self.selected_letter_number = 1
-        self.focused_on = True
+        self.focused_on = True  # if this is is False then a WordTable object will not respond to typing at all
         self.valid_letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
-                              "S", "T", "U", "V", "W", "X", "Y", "Z"]
+                              "S", "T", "U", "V", "W", "X", "Y", "Z"]  # I totally know that I could have used ord() thank you very much
+        self.word = word
+        self.valid_words = set(valid_words)
+        self.update_callback = update_callback
 
         # Drawing
         self.boxes = []
@@ -78,8 +79,25 @@ class WordTable:
                 self.selected_letter_number += 1
 
             elif event.keysym == "Return" and self.selected_row_number <= 6 and self.selected_letter_number == 6:
-                self.selected_letter_number = 1
-                if self.selected_row_number == 6:
-                    self.focused_on = False
-                else:
-                    self.selected_row_number += 1
+                # Verifying whether the entered word is valid
+                entered_text = "".join([self.master.itemcget(x, "text") for x in self.texts[self.selected_row_number - 1]])
+                if entered_text in self.valid_words:
+                    # If valid, continue
+                    self.selected_letter_number = 1
+                    self.verify_row(entered_text)
+                    self.update_callback(entered_text, self.selected_row_number)
+                    if self.selected_row_number == 6:
+                        self.focused_on = False
+                    else:
+                        self.selected_row_number += 1
+
+    def verify_row(self, entered_text):
+        boxes = self.boxes[self.selected_row_number - 1]  # Shortening
+        # Checking each text
+        for letter_index, letter in enumerate(entered_text):
+            if letter not in self.word:
+                self.master.itemconfig(boxes[letter_index], fill=self.theme["grid_square_incorrect"])
+            elif letter != self.word[letter_index]:
+                self.master.itemconfig(boxes[letter_index], fill=self.theme["grid_square_mismatched"])
+            else:
+                self.master.itemconfig(boxes[letter_index], fill=self.theme["grid_square_correct"])
