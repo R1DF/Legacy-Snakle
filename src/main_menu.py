@@ -1,9 +1,12 @@
 # Imports
 from screen import *
 from canvas_ui.button import Button
+from canvas_ui.image_button import ImageButton
 from necessary_defaults import THEMES_PATH, DEFAULT_THEME
-from themes import Themes
-from settings_p1 import Settings
+from themes_screen import Themes
+from webbrowser import open_new_tab
+import os
+
 
 # Main menu canvas
 class MainMenu(Screen):
@@ -68,6 +71,18 @@ class MainMenu(Screen):
             theme=self.theme,
             text="Exit",
             callback=exit
+        )
+
+        self.github_repository_button = ImageButton(
+            self,
+            60,  # 64x64
+            self.HEIGHT - 60,
+            80,
+            80,
+            conf=self.conf,
+            theme=self.theme,
+            image_path=os.getcwd() + "\\images\\invertocat_logo_64x64.png",
+            callback=lambda: open_new_tab("https://github.com/R1DF/Legacy-Snakle")
         )
 
         self.version_text = self.create_text(
