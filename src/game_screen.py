@@ -108,7 +108,7 @@ class GameScreen(Screen):
         # Checking exit cases
         if entered_text == self.word or attempt == 6:
             self.word_table.focused_on = False
-            self.itemconfig(self.end_text, text="Congratulations! You win!" if entered_text == self.word else "No attempts left! You lose this round.")
+            self.itemconfig(self.end_text, text="Congratulations! You win!" if entered_text == self.word else f"No attempts left! The word was {self.word}.")
 
             # if the player won, add a new word to the clearance file
             if entered_text == self.word:
