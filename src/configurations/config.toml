@@ -1,5 +1,5 @@
 [window]
-resolutions = [ [ 500, 600,], [ 800, 900,],]
+resolutions = [ [ 500, 600,],]
 default_resolution_index = 0
 
 [text]
@@ -16,5 +16,5 @@ scale_highlight_cycle_ms = 500
 
 [game]
 has_sound = true
-has_animation = true
+progressive_reveal_on_sound = true
 allow_test_screen = false
