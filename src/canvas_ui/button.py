@@ -1,6 +1,8 @@
 # Imports
 from tkinter import Canvas
+from sound_system import SoundSystem
 from .is_inside import is_inside
+
 
 # Button class
 class Button:
@@ -23,6 +25,7 @@ class Button:
         self.text_data = conf.get("text")
         self.text = text
         self.callback = callback
+        self.sound_system = SoundSystem(conf)
         
         # Drawing
         self.rect = self.master.create_rectangle(*self.init_coordinates, width=2, fill=self.theme["button_fill"])
@@ -51,4 +54,5 @@ class Button:
     def handle_lclick(self, event):
         if is_inside(event, self.init_coordinates):
             self.callback()
+            self.sound_system.play("button_clicked")
 

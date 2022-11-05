@@ -2,11 +2,12 @@
 from tkinter import Canvas
 from .file_selector import FileSelector
 from .is_inside import is_inside
-from os import getcwd, listdir
+from os import listdir
 from math import ceil  # To get max page conversion
 
+
 # File Selector List class
-class FileSelectorList():
+class FileSelectorList:
     def __init__(
             self,
             master: Canvas,

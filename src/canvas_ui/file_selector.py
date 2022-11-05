@@ -3,6 +3,7 @@ import os
 import json
 import toml
 from .is_inside import is_inside
+from sound_system import SoundSystem
 
 
 # File Selector class
@@ -27,6 +28,7 @@ class FileSelector:
         self.theme = theme
         self.conf = conf
         self.file_type = file_type
+        self.sound_system = SoundSystem(self.conf)
 
         # Meta and special attributes
         self.file_name = file_name
@@ -99,6 +101,7 @@ class FileSelector:
                 self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_selected"])
 
     def select(self):
+        self.sound_system.play("file_selected")
         self.is_selected = True
         self.master.master.itemconfig(self.rect, fill=self.theme["selector_element_selected"])
 
@@ -112,3 +115,4 @@ class FileSelector:
         self.master.master.delete(self.file_title_text)
         self.master.master.delete(self.file_date_text)
         self.master.master.delete(self.file_creator_text)
+

@@ -1,6 +1,7 @@
 # Imports
 from tkinter import Canvas
 from .is_inside import is_inside
+from sound_system import SoundSystem
 
 
 # Scale class
@@ -33,6 +34,7 @@ class Scale:
         self.is_highlighted = False
         self.callback_up = callback_up
         self.callback_down = callback_down
+        self.sound_system = SoundSystem(self.conf)
 
         # Drawing
         self.number_rect = self.master.create_rectangle(
@@ -119,6 +121,7 @@ class Scale:
             self.master.itemconfig(self.number_rect, outline=self.theme["scale_cursor"])
 
         elif is_inside(event, self.master.bbox(self.up_input_field)):
+            self.sound_system.play("selector_clicked")
             self.is_highlighted = False
             self.value = self.value + 1 if self.value != self.max_value else self.value
             self.master.itemconfig(self.value_number_text, text=str(self.value))
@@ -128,6 +131,7 @@ class Scale:
             self.validate_input()
 
         elif is_inside(event, self.master.bbox(self.down_input_field)) and self.has_valid_input():
+            self.sound_system.play("selector_clicked")
             self.is_highlighted = False
             self.value = self.value - 1 if self.value != self.min_value else self.value
             self.master.itemconfig(self.value_number_text, text=str(self.value))

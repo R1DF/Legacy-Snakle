@@ -1,6 +1,7 @@
 # Imports
 from tkinter import Canvas
 from .is_inside import is_inside
+from sound_system import SoundSystem
 
 
 # Selector class
@@ -30,6 +31,7 @@ class Selector:
         self.value = self.values[self.default_value_index]
         self.left_offset = left_offset
         self.right_offset = right_offset
+        self.sound_system = SoundSystem(conf)
 
         # Drawing
         self.value_rect = self.master.create_rectangle(
@@ -105,10 +107,12 @@ class Selector:
 
     def handle_lclick(self, event):
         if is_inside(event, self.master.bbox(self.left_input_field)):
+            self.sound_system.play("selector_clicked")
             self.value_index = self.value_index if self.value_index == 0 else self.value_index - 1 # ternary condition to make sure you can't go back before 0
             self.value = self.values[self.value_index]
             self.master.itemconfig(self.value_label, text=self.value)
         elif is_inside(event, self.master.bbox(self.right_input_field)):
+            self.sound_system.play("selector_clicked")
             self.value_index = self.value_index if self.value_index == len(self.values)-1 else self.value_index + 1 # basically same as above but to the right
             self.value = self.values[self.value_index]
             self.master.itemconfig(self.value_label, text=self.value)
