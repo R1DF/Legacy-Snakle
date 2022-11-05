@@ -6,6 +6,7 @@ from necessary_defaults import THEMES_PATH, DEFAULT_THEME
 from themes_screen import Themes
 from webbrowser import open_new_tab
 import os
+import sys
 
 
 # Main menu canvas
@@ -70,7 +71,7 @@ class MainMenu(Screen):
             conf=self.conf,
             theme=self.theme,
             text="Exit",
-            callback=quit
+            callback=sys.exit
         )
 
         self.github_repository_button = ImageButton(
