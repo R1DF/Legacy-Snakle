@@ -70,7 +70,7 @@ class MainMenu(Screen):
             conf=self.conf,
             theme=self.theme,
             text="Exit",
-            callback=exit
+            callback=quit
         )
 
         self.github_repository_button = ImageButton(
