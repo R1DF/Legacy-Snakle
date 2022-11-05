@@ -98,14 +98,21 @@ class FontManager(Toplevel):
         elif self.fonts_listbox.get(0, "end") == self.conf.get("text")["fonts"]:
             return
         else:
+            # If the index is too high and fonts were deleted, set the index automatically to 0 to prevent bugs
+            fonts = self.fonts_listbox.get(0, "end")
+            new_default_font_family_index = self.conf.get("text")["default_font_family_index"]
+            if new_default_font_family_index >= len(fonts):
+                new_default_font_family_index = 0
+
             # Getting conf_to_merge and ConfChange class, then uploading
             conf_to_merge = {"text": {
-                "fonts":self.fonts_listbox.get(0, "end"),
-                "default_font_family_index": self.conf.get("text")["default_font_family_index"],
+                "fonts": fonts,
+                "default_font_family_index": new_default_font_family_index,
                 "text_size_huge": self.conf.get("text")["text_size_huge"],
                 "text_size_big": self.conf.get("text")["text_size_big"],
                 "text_size_mid": self.conf.get("text")["text_size_mid"],
-                "text_size_small": self.conf.get("text")["text_size_small"]
+                "text_size_small": self.conf.get("text")["text_size_small"],
+                "text_size_tiny": 10  # constant default
             }}
             conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, getcwd()+"\\configurations")
             conf_change.upload()
