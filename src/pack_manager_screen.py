@@ -5,11 +5,12 @@ from pack_finder import PackFinder
 from canvas_ui.file_selector_list import FileSelectorList
 from os import getcwd
 
+
 # Main menu canvas
 class PacksManager(Screen):
     def __init__(self, master, theme, conf):
         Screen.__init__(self, master, theme, conf)  # check out if this line is necessary
-        self.event = None # contains x and y mouse position
+        self.event = None  # contains x and y mouse position
 
     def initiate(self):
         # Filling with theme
@@ -152,3 +153,4 @@ class PacksManager(Screen):
 
     def show_pack_info(self):
         self.master.make_pack_information_shower(self.pack_selector_list.selected_selector.file_name)
+

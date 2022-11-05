@@ -1,6 +1,7 @@
 # Imports
 import os
 
+
 # Main code
 class PackFinder:
     def __init__(self, master, location):
@@ -9,3 +10,4 @@ class PackFinder:
 
     def get_amount_of_packs(self):
         return len(os.listdir(os.getcwd()+self.rel_path))
+

@@ -1,7 +1,6 @@
 # Imports
 from screen import *
 from canvas_ui.button import Button
-from necessary_defaults import THEMES_PATH, DEFAULT_THEME
 from canvas_ui.file_selector_list import FileSelectorList
 from os import getcwd
 from tkinter import messagebox

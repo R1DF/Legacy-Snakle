@@ -1,6 +1,6 @@
 # Imports
-import toml # the config file uses TOML
-import os
+import toml  # the config file uses TOML
+
 
 # Configuration loader class
 class ConfigLoader:
@@ -10,3 +10,4 @@ class ConfigLoader:
     
     def get(self, key):
         return self.toml_data[key]
+

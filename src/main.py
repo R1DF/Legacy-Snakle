@@ -1,18 +1,18 @@
 # Imports
-import os
-from tkinter import Tk, messagebox, PhotoImage # window GUI
+from tkinter import Tk, messagebox, PhotoImage  # window GUI and others
 from config_loader import ConfigLoader
 from theme_loader import ThemeLoader
 from necessary_defaults import *
 from main_menu import *
-from settings_p1 import Settings
-from settings_p2 import SettingsP2
+from settings_p1_screen import Settings
+from settings_p2_screen import SettingsP2
 from font_manager import FontManager
-from testscreen import TestScreen
+from test_screen import TestScreen
 from pack_information_shower import PackInfoShower
-from gameinitmenu import GameInitMenu
+from game_init_menu import GameInitMenu
 from game_screen import GameScreen
 from clearance_checker import ClearanceChecker
+
 
 # Making the window
 class App(Tk):
@@ -84,6 +84,8 @@ class App(Tk):
         if messagebox.askyesno("Confirm exit", "Are you sure you want to exit?"):
             quit()
 
+
 # Creating the window instance
 app = App()
 app.mainloop()
+

@@ -7,6 +7,7 @@ from canvas_ui.scale import Scale
 from config_changer import ConfChange
 from os import getcwd
 
+
 # Main menu canvas
 class SettingsP2(Screen):
     def __init__(self, master, theme, conf):

@@ -11,6 +11,8 @@ Then, in the main menu, press the number 8 on your keyboard.
 # Imports
 from screen import *
 from canvas_ui.file_selector_list import FileSelectorList
+
+
 # Main menu canvas
 class TestScreen(Screen):
     def __init__(self, master, theme, conf):
@@ -46,5 +48,4 @@ class TestScreen(Screen):
         self.master.unbind("<Tab>")
         self.master.make_main_menu()
         self.destroy()
-
 

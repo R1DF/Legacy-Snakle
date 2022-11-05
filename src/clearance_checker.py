@@ -13,6 +13,7 @@ It runs on 3 occasions:
 import json
 import os
 
+
 # Class
 class ClearanceChecker:
     def __init__(self, packs_path):
@@ -35,7 +36,7 @@ class ClearanceChecker:
         If it does not, it automatically creates an empty one.
         """
 
-        for pack in os.listdir(self.packs_path):
+        for pack in [x for x in os.listdir(self.packs_path) if x.endswith(".json")]:
             if f"c_{pack}" not in os.listdir(self.clearances_path):
                 json.dump({"file": pack, "clear_words": []}, open(self.clearances_path+f"c_{pack}", "w"))
 

@@ -1,10 +1,11 @@
 # Imports
 from tkinter import Canvas, Tk
 
+
 # Screen template
 class Screen(Canvas):
-    def __init__(self, master, theme: dict, conf):
-        self.master = master # make master available to class
+    def __init__(self, master: Tk, theme: dict, conf):
+        self.master = master  # make master available to class
         self.theme = theme["data"]
         self.theme_metadata = theme["meta"]
 
@@ -29,5 +30,5 @@ class Screen(Canvas):
         self.initiate()
     
     def initiate(self):
-        pass # Gets defined with every individual screen
+        pass  # Gets defined with every individual screen
 

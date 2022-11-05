@@ -1,5 +1,6 @@
 # Imports
-import os, toml
+import os
+import toml
 
 # CONFIGURATIONS
 CONF_PATH = os.getcwd() + "\\configurations\\"
