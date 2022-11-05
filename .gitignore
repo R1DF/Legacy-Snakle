@@ -2,5 +2,5 @@
 *.iml
 *.pyc
 __pycache__/*
-*.txt
-/src/clearance_data/*
+/src/clearance_data/*.json
+/src/notes.txt
