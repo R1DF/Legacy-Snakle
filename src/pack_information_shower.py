@@ -5,8 +5,8 @@ from subprocess import Popen
 from clearance_checker import ClearanceChecker
 import json
 
-# TODO: Add PACKS_PATH attribute to main.py to reduce code in this file and pack_selector_list.py
-PACKS_PATH = getcwd() +"\\packs\\"
+PACKS_PATH = getcwd() + "\\packs\\"
+
 
 # FontManager class
 class PackInfoShower(Toplevel):
@@ -17,8 +17,7 @@ class PackInfoShower(Toplevel):
         self.pack_name = pack_name
         self.pack_data = json.load(open(PACKS_PATH + self.pack_name, "r"))
         self.showing_description = False
-        self.title(f"Snakle - {self.pack_data['title']}")
-        self.geometry("350x355")
+        self.title(self.pack_data["title"])
         self.resizable(False, False)
 
         # Delection protocol
