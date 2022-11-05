@@ -1,4 +1,5 @@
 # Imports
+import sys
 from tkinter import Listbox
 from font_mng_windows import *
 from config_changer import ConfChange
@@ -120,7 +121,7 @@ class FontManager(Toplevel):
             # Mandatory shutdown
             messagebox.showinfo("Update detected", "Due to an update in the game data, the game must be restarted to "
                                                    "apply the new settings. Click OK to proceed.")
-            quit()
+            sys.exit()
 
     def load_fonts(self):
         for font in self.conf.get("text")["fonts"]:
