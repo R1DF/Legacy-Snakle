@@ -71,9 +71,9 @@ class MainMenu(Screen):
         )
 
         self.version_text = self.create_text(
-            self.WIDTH-40,
+            self.WIDTH-25,
             self.HEIGHT-10,
-            text="legacy 1.0.0",
+            text="LEGACY",
             font=[self.FONT, self.TEXT_SIZES["tiny"]]
         )
 
