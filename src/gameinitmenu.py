@@ -146,6 +146,6 @@ class GameInitMenu(Screen):
             self.itemconfig(self.page_shower, text=f"Page {self.pack_selector_list.current_page}")
 
     def play(self):
-        self.master.make_game(json.load(open(getcwd() + "\\packs\\" + self.pack_selector_list.selected_selector.file_name, "r")))
+        self.master.make_game(json.load(open(getcwd() + "\\packs\\" + self.pack_selector_list.selected_selector.file_name, "r")), self.pack_selector_list.selected_selector.file_name)
         self.destroy()
 
