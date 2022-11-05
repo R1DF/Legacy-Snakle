@@ -6,22 +6,22 @@ description = "Would you like the standard Wordle experience instead?"
 
 [data]
 # MISC.
-bg = "#4B8BBE"
+bg = "#9E9041"
 text_fill = "GREEN"
-text_invalid = "ORANGE"
+text_invalid = "RED"
 line_fill = "BLACK"
 
 # BUTTON
-button_fill = "BLUE"
-button_highlight = "RED"
+button_fill = "#C8B653"
+button_highlight = "#E0D075"
 
 # SELECTOR
-selector_fill = "#FFD43B"
+selector_fill = "#C8B653"
 selector_highlight = "#FFE873"
 
 # SCALE
-scale_fill = "#FFD43B"
-scale_highlight = "BLUE"
+scale_fill = "#C8B653"
+scale_highlight = "#FFE873"
 scale_cursor = "WHITE"
 scale_border = "RED"
 
@@ -29,7 +29,16 @@ scale_border = "RED"
 loading_bar_increase_fill = "GREEN"
 
 # SELECTOR LIST / ELEMENT
-selector_list_fill = "#4B8BBE"
-selector_element_fill = "#4B8BBE"
-selector_element_highlight = "#60ADEB"
+selector_list_fill = "#9E9041"
+selector_element_fill = "#9E9041"
+selector_element_highlight = "#E0D075"
 selector_element_selected = "YELLOW"
+
+# GRID
+grid_square_fill = "#4A4D4F"
+grid_square_correct = "#6CA965"
+grid_square_mismatched = "#C8B653"
+grid_square_incorrect = "#808080"
+grid_square_border = "BLACK"
+grid_square_text_fill = "BLACK"
+
