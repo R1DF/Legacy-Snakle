@@ -1,8 +1,9 @@
 # Imports
-from tkinter import Toplevel, Frame, Listbox, Label, Button, messagebox
+from tkinter import Listbox
 from font_mng_windows import *
 from config_changer import ConfChange
 from os import getcwd
+
 
 # FontManager class
 class FontManager(Toplevel):
@@ -11,8 +12,7 @@ class FontManager(Toplevel):
         Toplevel.__init__(self, master)
         self.master = master
         self.master.is_font_manager_open = True
-        self.title("Snakle - Fonts")
-        self.geometry("600x400")
+        self.title("Fonts")
         self.conf = self.master.conf
         self.opened_window_parameters = {
             "add": False,
@@ -24,10 +24,10 @@ class FontManager(Toplevel):
         self.protocol("WM_DELETE_WINDOW", self.handle_exit)
 
         # Building widgets
-        self.left_frame = Frame(self)
+        self.left_frame = Frame(self, padx=20)
         self.left_frame.grid(row=0, column=0)
 
-        self.right_frame = Frame(self)
+        self.right_frame = Frame(self, padx=20)
         self.right_frame.grid(row=0, column=1)
 
         # Left frame (fonts overview)

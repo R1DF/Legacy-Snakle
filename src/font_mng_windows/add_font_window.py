@@ -1,13 +1,14 @@
 # Imports
 from tkinter import Toplevel, Frame, Label, Entry, Button, font, messagebox
 
+
 # Making the adder window
 class FontAdder(Toplevel):
     def __init__(self, master):
         # Initialization
         Toplevel.__init__(self, master)
         self.master = master
-        self.title("Add font")
+        self.title("Add")
         self.master.opened_window_parameters["add"] = True
         self.resizable(False, False)
 
