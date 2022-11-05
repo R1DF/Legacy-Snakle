@@ -1,12 +1,13 @@
 # Imports
+import os
 from screen import *
 from canvas_ui.button import Button
 from canvas_ui.selector import Selector
 from necessary_defaults import THEMES_PATH, DEFAULT_THEME
-from pack_manager import PacksManager
+from pack_manager_screen import PacksManager
 from config_changer import ConfChange
 from tkinter import messagebox
-from os import getcwd
+
 
 # Main menu canvas
 class Settings(Screen):
@@ -34,25 +35,35 @@ class Settings(Screen):
             width=2
         )
 
-        self.game_resolution_text = self.create_text(
+        self.delete_clearance_residue_text = self.create_text(
             self.WIDTH // 2,
             120,
-            text="Window Resolution:",
+            text="Delete Clearance Data:",
             font=[self.FONT, self.TEXT_SIZES["mid"]]
         )
 
-        self.game_resolution_selector = Selector(
+        self.delete_clearance_residue_button = Button(
             self,
-            self.WIDTH // 2,
-            160,
-            190,
+            (self.WIDTH // 2) - 120,
+            170,
+            230,
             50,
-            40,
-            40,
             self.conf,
             self.theme,
-            values=[f"{x}x{y}" for x, y in self.conf.get("window")["resolutions"]], # list comprehensions save the world.
-            default_value_index=self.conf.get("window")["default_resolution_index"]
+            text="Residue Only",
+            callback=self.delete_clearance_residue
+        )
+
+        self.reset_clearance_data_button = Button(
+            self,
+            (self.WIDTH // 2) + 120,
+            170,
+            230,
+            50,
+            self.conf,
+            self.theme,
+            text="Reset All",
+            callback=self.reset_clearance_data
         )
 
         self.manage_sound_text = self.create_text(
@@ -72,18 +83,19 @@ class Settings(Screen):
             40,
             self.conf,
             self.theme,
-            values=["Sound ON", "Sound OFF"]
+            values=["Sound ON", "Sound OFF"],
+            default_value_index=0 if self.conf.get("game")["has_sound"] else 1
 
         )
 
         self.manage_animation_text = self.create_text(
             self.WIDTH // 2,
             330,
-            text="Toggle Word Reveal Animation:",
+            text="Reveal Type (only with sound):",
             font=[self.FONT, self.TEXT_SIZES["mid"]]
         )
 
-        self.manage_animation_selector = Selector(
+        self.reveal_on_sound_type = Selector(
             self,
             self.WIDTH // 2,
             380,
@@ -93,7 +105,8 @@ class Settings(Screen):
             40,
             self.conf,
             self.theme,
-            values=["Animated", "Instant"]
+            values=["Progressive", "Instant"],
+            default_value_index=0 if self.conf.get("game")["progressive_reveal_on_sound"] else 1
 
         )
 
@@ -170,6 +183,20 @@ class Settings(Screen):
             callback=self.return_to_menu
         )
 
+    def delete_clearance_residue(self):
+        clearance_files = [x for x in os.listdir(os.getcwd() + "\\clearance_data\\") if x.endswith(".json") and x.startswith("c_")]
+        for file in clearance_files:
+            if not os.path.exists(os.getcwd() + "\\packs\\" + file[2:]):
+                os.remove(os.getcwd() + "\\clearance_data\\" + file)
+        messagebox.showinfo("Success", "All residue was deleted.")
+
+    def reset_clearance_data(self):
+        if messagebox.askyesno("Confirm", "Are you sure you want to reset all clearance data? This means all your progress will be lost!"):
+            files = [x for x in os.listdir(os.getcwd() + "\\clearance_data\\") if x.endswith(".json") and x.startswith("c_")]
+            for file in files:
+                os.remove(os.getcwd() + "\\clearance_data\\" + file)
+            messagebox.showinfo("Success", "All progress was deleted.")
+
     def return_to_menu(self):
         self.master.make_main_menu()
         self.destroy()
@@ -187,24 +214,21 @@ class Settings(Screen):
         conf_to_merge = {"window": {}, "game": {}} # This file contains the data straight from the window
 
         # Below we are creating new config file with merged data from the old file and the new inputs
-        # Because in config.toml resolutions are represented by [L, Y] and in selectors by "LxW", we need to reformat the select res values
-
-        # Might try to make this a list comprehension
-        formatted_resolutions = []
-        for resolution in self.game_resolution_selector.values:
-            formatted_resolutions.append([int(x) for x in resolution.split("x")])
-
-        conf_to_merge["window"]["resolutions"] = formatted_resolutions
-        conf_to_merge["window"]["default_resolution_index"] = self.game_resolution_selector.value_index
+        # Resolution is a constant
+        conf_to_merge["window"]["resolutions"] = [[500, 600]]
+        conf_to_merge["window"]["default_resolution_index"] = 0
 
         # Checking if the sound has been toggled
         conf_to_merge["game"]["has_sound"] = self.manage_sound_selector.value == "Sound ON"
 
         # Checking if the word animation has been toggled
-        conf_to_merge["game"]["has_animation"] = self.manage_animation_selector.value == "Animated"
+        conf_to_merge["game"]["progressive_reveal_on_sound"] = self.reveal_on_sound_type.value == "Progressive"
+
+        # Adding constant value
+        conf_to_merge["game"]["allow_test_screen"] = False
 
         # Getting the ConfChange class, determining if a restart is required and checking if there's been actual changes
-        conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, getcwd()+"\\configurations")
+        conf_change = ConfChange(self, self.conf.toml_data, conf_to_merge, os.getcwd()+"\\configurations")
         if conf_change.is_updated():
             conf_change.upload()
             messagebox.showinfo("Update detected", "Due to an update in the game data, the game must be restarted to "
@@ -212,3 +236,4 @@ class Settings(Screen):
             quit()
         else:
             messagebox.showerror("No changes", "No changes were detected.")
+
