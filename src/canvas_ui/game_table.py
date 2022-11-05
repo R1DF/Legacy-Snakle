@@ -1,6 +1,8 @@
 # Imports
 from tkinter import Canvas
 from .is_inside import is_inside
+from sound_system import SoundSystem
+
 
 # Table class
 class WordTable:
@@ -34,6 +36,9 @@ class WordTable:
         self.word = word
         self.valid_words = set(valid_words)
         self.update_callback = update_callback
+        self.sound_system = SoundSystem(self.conf)
+        self.has_sound = self.conf.get("game")["has_sound"]
+        self.has_slow_reveal = self.conf.get("game")["progressive_reveal_on_sound"]
 
         # Drawing
         self.boxes = []
@@ -79,17 +84,37 @@ class WordTable:
                 self.selected_letter_number += 1
 
             elif event.keysym == "Return" and self.selected_row_number <= 6 and self.selected_letter_number == 6:
+                # self.already_checking = True
                 # Verifying whether the entered word is valid
                 entered_text = "".join([self.master.itemcget(x, "text") for x in self.texts[self.selected_row_number - 1]])
                 if entered_text in self.valid_words:
                     # If valid, continue
-                    self.selected_letter_number = 1
                     self.verify_row(entered_text)
                     self.update_callback(entered_text, self.selected_row_number)
-                    if self.selected_row_number == 6:
-                        self.focused_on = False
-                    else:
+                    if self.selected_row_number != 6:
                         self.selected_row_number += 1
+                        if self.has_sound:
+                            self.erase_row_as_precaution()
+                        self.selected_letter_number = 1
+                # self.already_checking = False
+
+    def disable_type_handing(self):
+        self.master.master.unbind("<KeyPress>")
+
+    def enable_type_handling(self):
+        self.master.master.bind("<KeyPress>", self.handle_type)
+
+    def erase_row_as_precaution(self):
+        # This function erases the next row always so that if the player typed whilst the program checked then their input is discarded
+        for widget in self.texts[self.selected_row_number - 1]:
+            self.master.update()
+            self.master.itemconfig(widget, text="")
+
+    def verify_play_sound(self, sound):
+        if self.has_sound and self.has_slow_reveal:
+            self.master.update()
+            self.sound_system.force_play(sound, False)
+            self.master.after(80)
 
     def verify_row(self, entered_text):
         boxes = self.boxes[self.selected_row_number - 1]  # Shortening
@@ -97,7 +122,11 @@ class WordTable:
         for letter_index, letter in enumerate(entered_text):
             if letter not in self.word:
                 self.master.itemconfig(boxes[letter_index], fill=self.theme["grid_square_incorrect"])
+                self.verify_play_sound("incorrect_letter")
             elif letter != self.word[letter_index]:
                 self.master.itemconfig(boxes[letter_index], fill=self.theme["grid_square_mismatched"])
+                self.verify_play_sound("found_letter")
             else:
                 self.master.itemconfig(boxes[letter_index], fill=self.theme["grid_square_correct"])
+                self.verify_play_sound("correct_match")
+
