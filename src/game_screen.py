@@ -6,6 +6,7 @@ from screen import *
 from canvas_ui.button import Button
 from canvas_ui.game_table import WordTable
 
+
 # Game initialization canvas
 class GameScreen(Screen):
     def __init__(self, master, theme, conf, words_pack, pack_file_name):
@@ -116,3 +117,9 @@ class GameScreen(Screen):
                 self.add_to_clearance(self.word)
 
             self.new_game_button.show()
+
+            # Play sound lastly if there's sound on and there is no progressive reveal
+            if not self.word_table.has_slow_reveal:
+                self.update()
+                self.word_table.sound_system.force_play("correct_match", True)
+
