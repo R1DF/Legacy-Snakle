@@ -26,7 +26,6 @@ class GameScreen(Screen):
             set_intersection = set(self.words) ^ set(self.clearance_file_data["clear_words"])  # finds symmetric difference (!intersection)
             self.word = random.choice(list(set_intersection))
 
-
         Screen.__init__(self, master, theme, conf)
 
     def initiate(self):
@@ -86,7 +85,6 @@ class GameScreen(Screen):
         )
 
         self.new_game_button.hide()
-        print(self.word)
 
     def back_to_menu(self):
         self.master.make_main_menu()
@@ -115,6 +113,7 @@ class GameScreen(Screen):
             # if the player won, add a new word to the clearance file
             if entered_text == self.word:
                 self.add_to_clearance(self.word)
+
 
             self.new_game_button.show()
 
