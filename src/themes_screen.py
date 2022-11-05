@@ -1,10 +1,11 @@
 # Imports
+import toml
+import sys
 from screen import *
 from canvas_ui.button import Button
 from canvas_ui.file_selector_list import FileSelectorList
 from os import getcwd
 from tkinter import messagebox
-import toml
 
 
 # Main menu canvas
@@ -148,5 +149,5 @@ class Themes(Screen):
         }, open(getcwd() + "\\default_theme.toml", "w"))
         messagebox.showinfo("Update detected", "Due to an update in the game data, the game must be restarted to "
                                                "apply the new settings. Click OK to proceed.")
-        quit()
+        sys.exit()
 
