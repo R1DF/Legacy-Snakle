@@ -3,15 +3,16 @@ import json
 from screen import *
 from canvas_ui.button import Button
 from canvas_ui.file_selector_list import FileSelectorList
-from necessary_defaults import THEMES_PATH, DEFAULT_THEME
+from clearance_checker import ClearanceChecker
 from os import getcwd
-from tkinter import messagebox
+
 
 # Game initialization canvas
 class GameInitMenu(Screen):
     def __init__(self, master, theme, conf):
         Screen.__init__(self, master, theme, conf)
         self.opened_url_configurator = False
+        ClearanceChecker(getcwd() + "\\packs\\").check_files()  # make sure all clearance files are intact
 
     def initiate(self):
         # Filling with theme
