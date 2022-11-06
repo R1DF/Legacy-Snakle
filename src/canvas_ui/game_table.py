@@ -39,6 +39,7 @@ class WordTable:
         self.sound_system = SoundSystem(self.conf)
         self.has_sound = self.conf.get("game")["has_sound"]
         self.has_slow_reveal = self.conf.get("game")["progressive_reveal_on_sound"]
+        self.already_checking = False
 
         # Drawing
         self.boxes = []
@@ -83,8 +84,8 @@ class WordTable:
                 # if self.selected_letter_number != 6:
                 self.selected_letter_number += 1
 
-            elif event.keysym == "Return" and self.selected_row_number <= 6 and self.selected_letter_number == 6:
-                # self.already_checking = True
+            elif event.keysym == "Return" and self.selected_row_number <= 6 and self.selected_letter_number == 6 and (not self.already_checking):
+                self.already_checking = True
                 # Verifying whether the entered word is valid
                 entered_text = "".join([self.master.itemcget(x, "text") for x in self.texts[self.selected_row_number - 1]])
                 if entered_text in self.valid_words:
@@ -96,7 +97,7 @@ class WordTable:
                         if self.has_sound:
                             self.erase_row_as_precaution()
                         self.selected_letter_number = 1
-                # self.already_checking = False
+                self.already_checking = False
 
     def disable_type_handing(self):
         self.master.master.unbind("<KeyPress>")
