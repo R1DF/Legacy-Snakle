@@ -7,7 +7,10 @@ Legacy Snakle lets you:
 * Play with words given from any pack you download without waiting 24 hours each time (including some preinstalled ones!)
 * Configure the program's theme if you're not a fan of the default blue and yellow one (There's a more Wordle themed one too!)
 * Track your progress with completing a certain pack
+* Create your own word packs which can fit in any piece of text that is 5 letters long!\*
 * Select whether you'd like for sound to be played<br>
+
+\* If you don't want to create .JSON packs on your own, you might want to check [this](https://github.com/R1DF/Snakle-Pack-Editor) program out.<br>
 
 ## Credits
 Wordle has been developed by **Josh Wardle**. It's currently owned by the **New York Times Company**.<br>
