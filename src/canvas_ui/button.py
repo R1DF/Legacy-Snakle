@@ -26,6 +26,7 @@ class Button:
         self.text = text
         self.callback = callback
         self.sound_system = SoundSystem(conf)
+        self.shown = True
         
         # Drawing
         self.rect = self.master.create_rectangle(*self.init_coordinates, width=2, fill=self.theme["button_fill"])
@@ -38,10 +39,12 @@ class Button:
         self.master.bind("<Button-1>", self.handle_lclick, add="+")
 
     def hide(self):
+        self.shown = False
         self.master.itemconfig(self.rect, state="hidden")
         self.master.itemconfig(self.label, state="hidden")
 
     def show(self):
+        self.shown = True
         self.master.itemconfig(self.rect, state="normal")
         self.master.itemconfig(self.label, state="normal")
 
@@ -52,7 +55,7 @@ class Button:
             self.master.itemconfig(self.rect, fill=self.theme["button_fill"])
 
     def handle_lclick(self, event):
-        if is_inside(event, self.init_coordinates):
+        if is_inside(event, self.init_coordinates) and self.shown:
             self.callback()
             self.sound_system.play("button_clicked")
 
