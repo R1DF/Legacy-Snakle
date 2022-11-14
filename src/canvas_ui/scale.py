@@ -172,7 +172,7 @@ class Scale:
 
         self.master.after(self.conf.get("widgets")["scale_highlight_cycle_ms"], self.highlight_cycle)
 
-    def validate_input(self): # this function changes the text
+    def validate_input(self):  # this function changes the text
         if self.value < self.min_value:
             self.master.itemconfig(self.value_number_text, fill=self.theme["text_invalid"])
         else:
